@@ -10,41 +10,10 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-18 15:51:39
+Date: 2017-09-21 16:43:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for `yii_admin`
--- ----------------------------
-DROP TABLE IF EXISTS `yii_admin`;
-CREATE TABLE `yii_admin` (
-  `uid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-  `username` char(16) NOT NULL COMMENT '用户名',
-  `password` char(60) NOT NULL COMMENT '密码',
-  `salt` char(32) NOT NULL COMMENT '密码干扰字符',
-  `email` char(32) NOT NULL COMMENT '用户邮箱',
-  `mobile` char(15) NOT NULL DEFAULT '' COMMENT '用户手机',
-  `reg_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '注册时间',
-  `reg_ip` bigint(20) NOT NULL DEFAULT '0' COMMENT '注册IP',
-  `last_login_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最后登录时间',
-  `last_login_ip` bigint(20) NOT NULL DEFAULT '0' COMMENT '最后登录IP',
-  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `status` tinyint(4) DEFAULT '0' COMMENT '用户状态 1正常 0禁用',
-  PRIMARY KEY (`uid`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`),
-  KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='用户表';
-
--- ----------------------------
--- Records of yii_admin
--- ----------------------------
-INSERT INTO `yii_admin` VALUES ('1', 'admin', '$2y$13$0UVcG.mXF6Og0rnjfwJd2.wixT2gdn.wDO9rN44jGtIGc6JvBqR7i', 'SbSY36BLw3V2lU-GB7ZAzCVJKDFx82IJ', 'phphome111@qq.com', '13565231112', '1457922160', '2130706433', '1457922174', '2130706433', '1481278788', '1');
-INSERT INTO `yii_admin` VALUES ('2', 'feifei', '$2y$13$jqWGlVo8T3qtnWUX0kTX/ON5ctvokzkQ7RAvKuNRjN.WvxgBlFK4u', 'tzDsmCSLbtktnvbgn1YeEqslYOBo1Cn9', 'php11111@qq.com', '13631568985', '1458028401', '2130706433', '1458028401', '2130706433', '1468230085', '1');
-INSERT INTO `yii_admin` VALUES ('6', 'guanli', '$2y$13$QK.CEi7HHuTSIMbq5RbzeOfTNgrX8mUTl/noBkHtD/zKEf7y.SQO6', '_4F9_ptxkohU247kgi7UB4rg3UMYqo14', 'phphome222@qq.com', '13565656565', '1476438209', '2130706433', '0', '2130706433', '0', '1');
-INSERT INTO `yii_admin` VALUES ('7', 'huang', '$2y$13$SO1qMnykM3MJuNizsqzQH.QBjPPDZ7U556yUtmSU3optwZ1EdWm0W', 'nkqZMhWkbIsjZrF1J8laC1UxWoXPRobA', 'phphome@qqqqq.com', '13656589562', '1481000197', '3232243969', '0', '2130706433', '1481003421', '1');
 
 -- ----------------------------
 -- Table structure for `yii_admin_log`
@@ -118,12 +87,13 @@ CREATE TABLE `yii_admin_user` (
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '用户状态（1-正常 0-禁用）',
   `menu_ids` varchar(2000) NOT NULL DEFAULT '' COMMENT '菜单id集合',
   PRIMARY KEY (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of yii_admin_user
 -- ----------------------------
 INSERT INTO `yii_admin_user` VALUES ('1', 'admin', '$2y$13$0UVcG.mXF6Og0rnjfwJd2.wixT2gdn.wDO9rN44jGtIGc6JvBqR7i', 'SbSY36BLw3V2lU-GB7ZAzCVJKDFx82IJ', '15311583010@126.com', '15311583010', '2017-09-15 23:00:08', '2130706433', '2017-09-15 23:00:19', '2130706433', '2017-09-15 23:00:25', '1', '1', '1,2,3');
+INSERT INTO `yii_admin_user` VALUES ('2', 'ceshi', '$13$SO1qMnykM3MJuNizsqzQH.QBjPPDZ7U556yUtmSU3optwZ1EdWm0W', 'nkqZMhWkbIsjZrF1J8laC1UxWoXPRobA', 'ceshi@126.com', '18676379315', '2017-09-21 16:37:13', '2130706433', '2017-09-21 16:37:20', '2130706433', '2017-09-21 16:37:32', '2', '1', '');
 
 -- ----------------------------
 -- Table structure for `yii_admin_user_auth`

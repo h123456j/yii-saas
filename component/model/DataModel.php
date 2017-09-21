@@ -77,10 +77,9 @@ class DataModel extends Model
     /**
      * model数据装载
      * @param $data
-     * @param $data1
      * @return $this
      */
-    public function loadData($data, $data1)
+    public function loadData($data)
     {
         if (func_num_args() > 0) {
             foreach (func_get_args() as $item) {

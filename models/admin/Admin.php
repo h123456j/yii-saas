@@ -69,6 +69,24 @@ class Admin extends \app\models\table\Admin implements IdentityInterface
     }
 
     /**
+     * 分页获取管理员列表
+     * @param $pager
+     * @return mixed
+     */
+    public static function getUserList($pager)
+    {
+        $query=static::find()
+            ->select('au.*,ag.name groupName')
+            ->from('yii_admin_user au')
+            ->leftJoin('yii_admin_user_group ag', 'au.group_id=ag.group_id')
+            ->where([ 'au.status' => self::STATUS_ACTIVE, 'ag.status' => self::STATUS_ACTIVE])
+            ->offset($pager->getOffset())
+            ->limit($pager->getLimit());
+        $pager->setCount($query->count());
+        return $query->all();
+    }
+
+    /**
      * Finds user by password reset token
      *
      * @param string $token password reset token

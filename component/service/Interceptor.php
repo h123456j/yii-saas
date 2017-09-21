@@ -30,12 +30,12 @@ class Interceptor
 
     public function __construct(BaseService $service)
     {
-        $this->service;
+        $this->service = $service;
         $this->serviceName = get_class($service);
     }
 
     /**
-     * 返货当前service对象
+     * 返回当前service对象
      * @return mixed
      */
     public function noInterceptor()

@@ -42,10 +42,14 @@ class BaseService
     {
         $class=get_called_class();
         if(!isset(self::$_instance[$class]))
-            self::$_instance[$class]=new Interceptor(new  $class());
+            self::$_instance[$class]=new Interceptor(new $class());
         return self::$_instance[$class];
     }
 
+    public function noInterceptor()
+    {
+        return $this;
+    }
 
 
 }

@@ -41,6 +41,21 @@ class Page extends DataModel
         ];
     }
 
+    public function getOffset()
+    {
+        return ($this->page - 1) * $this->size;
+    }
+
+    public function getLimit()
+    {
+        return $this->size;
+    }
+
+    public function getCurrentPage()
+    {
+        return $this->page;
+    }
+
     /**
      * @return int
      */
@@ -78,7 +93,7 @@ class Page extends DataModel
      */
     public function getCount()
     {
-        return $this->count;
+        return (int)$this->count;
     }
 
     /**
@@ -94,7 +109,7 @@ class Page extends DataModel
      */
     public function getTotalPage()
     {
-        return $this->totalPage;
+        return $this->size > 0 ? ceil($this->count / $this->size) : 0;
     }
 
     /**
