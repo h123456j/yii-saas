@@ -10,6 +10,9 @@ class Menu extends \app\models\table\Menu
 {
 
     const MENU_ACTIVE='active';
+    const MENU_HIDE_STATUS=0;
+    const MENU_STATUS_ACTIVE=1;
+
     /**
      * 配置model规则
      */
@@ -108,6 +111,15 @@ class Menu extends \app\models\table\Menu
             }
         }
         return $data;
+    }
+
+    /**
+     * 获取菜单栏列表
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function getMenuList()
+    {
+        return static::find()->where(['status'=>self::MENU_STATUS_ACTIVE,'hide'=>self::MENU_HIDE_STATUS])->asArray(true)->all();
     }
 
 }

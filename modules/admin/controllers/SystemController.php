@@ -52,6 +52,8 @@ class SystemController extends BaseController
     public function actionMenuList()
     {
         $this->getView()->title = '菜单栏列表';
+        $result=UserService::instance()->getMenuList();
+        VarDumper::dump($result,10,true);die;
         return $this->render('menu_list');
     }
 

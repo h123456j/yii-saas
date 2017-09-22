@@ -30,6 +30,9 @@ $config=[
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'errorManager'=>[
+            'class'=>'app\component\exception\ErrorManager'
+        ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'useFileTransport' => true,
