@@ -1,6 +1,9 @@
 
-
 <div class="table-responsive">
+
+    <div class="form-inline">
+
+    </div>
     <table class="table table-bordered">
         <thead>
         <tr>
