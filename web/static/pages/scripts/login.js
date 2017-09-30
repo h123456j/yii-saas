@@ -27,7 +27,7 @@ var Login = function() {
                 }
             },
 
-            invalidHandler: function(event, validator) { //display error alert on form submit   
+            invalidHandler: function(event, validator) { //display error alert on form submit
                 $('.alert-danger', $('.login-form')).show();
             },
 
@@ -50,13 +50,13 @@ var Login = function() {
                 $(form).ajaxSubmit({
                     success: function(data){
                         if (data == 1) {
-                            window.location.href=BaseUrl;
+                            window.location.href=BaseUrl+'/admin/index';
                         } else {
                             $('.alert-danger').show();
                         }
                     }
                 });
-                
+
             }
         });
 
@@ -89,7 +89,7 @@ var Login = function() {
                 }
             },
 
-            invalidHandler: function(event, validator) { //display error alert on form submit   
+            invalidHandler: function(event, validator) { //display error alert on form submit
 
             },
 
@@ -140,7 +140,7 @@ var Login = function() {
             var $state = $(
              '<span><img src="../assets/global/img/flags/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
             );
-            
+
             return $state;
         }
 
@@ -149,7 +149,7 @@ var Login = function() {
 	            placeholder: '<i class="fa fa-map-marker"></i>&nbsp;Select a Country',
 	            templateResult: format,
                 templateSelection: format,
-                width: 'auto', 
+                width: 'auto',
 	            escapeMarkup: function(m) {
 	                return m;
 	            }
@@ -206,7 +206,7 @@ var Login = function() {
                 }
             },
 
-            invalidHandler: function(event, validator) { //display error alert on form submit   
+            invalidHandler: function(event, validator) { //display error alert on form submit
 
             },
 
@@ -221,7 +221,7 @@ var Login = function() {
             },
 
             errorPlacement: function(error, element) {
-                if (element.attr("name") == "tnc") { // insert checkbox errors after the container                  
+                if (element.attr("name") == "tnc") { // insert checkbox errors after the container
                     error.insertAfter($('#register_tnc_error'));
                 } else if (element.closest('.input-icon').size() === 1) {
                     error.insertAfter(element.closest('.input-icon'));

@@ -25,10 +25,11 @@ $this->beginPage();
         <?php $this->head() ?>
         <link rel="shortcut icon" href="<?=Yii::getAlias('@web/favicon.ico')?>" />
         <script language="JavaScript">
-            var BaseUrl = '<?=Yii::getAlias('@web')?>';
+            var BaseUrl = '<?echo  Yii::$app->request->getHostInfo();?>';
         </script>
     </head>
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
+    <?php echo  \common\widgets\modal\ContentModalWidget::widget([]);?>
     <?php $this->beginBody() ?>
         <div class="page-header navbar navbar-fixed-top">
             <div class="page-header-inner ">
@@ -95,7 +96,7 @@ $this->beginPage();
                 </style>
                 <div id="top-alert" class="fixed alert alert-error alert_left" style="display: none;">
                     <button class="close" style="margin-top:6px;">&times;</button>
-                    <div class="alert-content">这是Ajax弹出内容</div>
+                    <div class="alert-content">提示信息</div>
                 </div>
 
                 <!-- BEGIN CONTENT BODY -->

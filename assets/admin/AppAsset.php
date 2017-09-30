@@ -37,6 +37,7 @@ class AppAsset extends AssetBundle
         'static/global/plugins/jquery.block-ui.min.js',
         'static/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js',
         'static/global/scripts/app.js',
+        'static/common/content-modal.js'
     ];
 
     /* 依赖关系 */

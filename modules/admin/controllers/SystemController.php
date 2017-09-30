@@ -45,6 +45,12 @@ class SystemController extends BaseController
         return $this->render('group_list',['data'=>$data,'pages'=>$pagination]);
     }
 
+    public function actionGroupUpdate($id=null)
+    {
+        $this->layout='/admin/simple';
+        return $this->render('group-update');
+    }
+
     /**
      * @auth_route system/menu-list
      * @return string

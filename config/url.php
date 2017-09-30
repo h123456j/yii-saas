@@ -7,6 +7,6 @@
  */
 
 return [
-    //管理后台模块
+    '/admin'=>'admin/index',
     '/'=>'frontend/index',
 ];

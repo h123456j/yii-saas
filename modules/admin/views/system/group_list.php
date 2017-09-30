@@ -1,8 +1,7 @@
 
 <div class="table-responsive">
-
     <div class="form-inline">
-
+        <button class="btn btn-primary" data-target="#content-modal" modal-title="添加用户组" data-remote="<?php echo  Yii::$app->request->getHostInfo().'/admin/system/group-update'?>" data-toggle="modal">添加用户组</button>
     </div>
     <table class="table table-bordered">
         <thead>

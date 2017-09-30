@@ -15,7 +15,7 @@ $this->beginPage();
         <?php $this->head() ?>
         <link rel="shortcut icon" href="favicon.ico" />
         <script language="JavaScript">
-            var BaseUrl = '<?=Yii::getAlias('@web')?>';
+            var BaseUrl = '<?=Yii::$app->request->getHostInfo();?>';
         </script>
     </head>
     <!-- END HEAD -->
