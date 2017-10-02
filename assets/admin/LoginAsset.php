@@ -30,8 +30,6 @@ class LoginAsset extends AssetBundle
         'static/global/plugins/jquery-validation/js/jquery.validate.min.js',
         'static/global/plugins/jquery-validation/js/additional-methods.min.js',
         'static/global/plugins/select2/js/select2.full.min.js',
-        'static/pages/scripts/jquery.form.js',
-        'static/pages/scripts/login.js',
     ];
     /* 依赖关系 */
     public $depends = [

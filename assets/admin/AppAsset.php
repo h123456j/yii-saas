@@ -29,15 +29,17 @@ class AppAsset extends AssetBundle
     ];
     /* 全局JS文件 */
     public $js = [
-        'static/global/plugins/jquery.min.js',
+        'static/common/jquery.js',
         'static/global/plugins/js.cookie.min.js',
+        'static/pages/scripts/jquery.form.js',
         'static/global/plugins/bootstrap/js/bootstrap.min.js',
         'static/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js',
         'static/global/plugins/jquery-slim-scroll/jquery.slimscroll.min.js',
         'static/global/plugins/jquery.block-ui.min.js',
         'static/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js',
         'static/global/scripts/app.js',
-        'static/common/content-modal.js'
+        'static/common/content-modal.js',
+        'static/common/common.js'
     ];
 
     /* 依赖关系 */

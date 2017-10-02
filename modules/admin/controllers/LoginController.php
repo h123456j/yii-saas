@@ -13,12 +13,16 @@ use yii\helpers\Url;
  * 后台登录控制器
  * @author longfei <phphome@qq.com>
  */
-class LoginController extends Controller
+class LoginController extends BaseController
 {
-    public $layout = false;
 
+    public function behaviors()
+    {
+        return [];
+    }
+
+    public $layout = '/admin/login';
     public $enableCsrfValidation = false;
-
     public $defaultAction = 'login';
 
     /**
@@ -28,15 +32,15 @@ class LoginController extends Controller
      */
     public function actionLogin()
     {
-        if (! Yii::$app->user->isGuest)
-            return $this->redirect(['/admin/index']);
+//        if (! Yii::$app->user->isGuest)
+//            return $this->redirect(['/admin/index']);
 
         $model = new LoginForm();
         if (Yii::$app->request->isPost) {
             if ($model->load(Yii::$app->request->post(), 'info') && $model->login()) {
-                return 1;
+                return $this->ajaxReturn(['ret'=>true,'data'=>1]);
             } else {
-                return 0;
+                return $this->ajaxReturn(['ret'=>false,'data'=>'']);
             }
         } else {
             return $this->render('login', [
