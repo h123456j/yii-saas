@@ -57,7 +57,8 @@ $config=[
     'modules'=>[
         'admin'=>'app\modules\admin\Module',
         'api'=>'app\modules\api\Module',
-        'frontend'=>'app\modules\frontend\Module'
+        'frontend'=>'app\modules\frontend\Module',
+        'doc'=>'app\modules\doc\Module',
     ],
     'params' => $params,
 ];

@@ -29,7 +29,7 @@ class AppAsset extends AssetBundle
     ];
     /* 全局JS文件 */
     public $js = [
-        'static/common/jquery.js',
+        'static/common/js/jquery.js',
         'static/global/plugins/js.cookie.min.js',
         'static/pages/scripts/jquery.form.js',
         'static/global/plugins/bootstrap/js/bootstrap.min.js',
@@ -38,8 +38,8 @@ class AppAsset extends AssetBundle
         'static/global/plugins/jquery.block-ui.min.js',
         'static/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js',
         'static/global/scripts/app.js',
-        'static/common/content-modal.js',
-        'static/common/common.js'
+        'static/common/js/content-modal.js',
+        'static/common/js/common.js'
     ];
 
     /* 依赖关系 */

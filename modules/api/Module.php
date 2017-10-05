@@ -8,7 +8,13 @@
 
 namespace app\modules\api;
 
-
+/**
+ *
+ * @jid-enable true
+ *
+ * Class Module
+ * @package app\modules\api
+ */
 class Module extends \yii\base\Module
 {
 
