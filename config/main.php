@@ -18,6 +18,10 @@ $config=[
             'class'=>'common\core\Request',
             'cookieValidationKey' => '123456',
         ],
+        'response'=>[
+            'class'=>'common\core\Response',
+            'errorManager'=>'errorManager'
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

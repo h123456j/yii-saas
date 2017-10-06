@@ -9,6 +9,7 @@
 namespace app\component\controller;
 
 
+use app\component\filter\Signature;
 use yii\web\Controller;
 
 class BaseController extends Controller
@@ -16,7 +17,11 @@ class BaseController extends Controller
 
     public function behaviors()
     {
-
+        return [
+            'sign'=>[
+                'class'=>Signature::className()
+            ]
+        ];
     }
 
 }

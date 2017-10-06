@@ -52,7 +52,7 @@ class IndexController extends BaseController
      *     "10000":"系统错误"
      * }
      */
-    public function actionGetPage()
+    public function actionGetList()
     {
 
     }

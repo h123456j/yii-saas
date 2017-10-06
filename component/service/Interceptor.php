@@ -8,6 +8,8 @@
 
 namespace app\component\service;
 
+//defined('YII_REQUEST_START_TIME') or define('YII_REQUEST_START_TIME',time());
+
 
 use app\services\base\BaseService;
 use common\error\Error;
