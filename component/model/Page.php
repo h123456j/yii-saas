@@ -18,7 +18,7 @@ class Page extends DataModel
     private $totalPage;
 
 
-    public function __construct($page = 1, $size = 30, $count = 0, $config = [])
+    public function __construct($page = 1, $size = 15, $count = 0, $config = [])
     {
         $page = (int)$page;
         $size = (int)$size;

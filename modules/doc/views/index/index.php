@@ -57,10 +57,8 @@
         color: #FF0000;
     }
 </style>
-<div class="col-lg-12" style="background-color: #c0c0c0;min-height: 700px;">
-    <h2 style="text-align: center;">接口文档</h2>
-
-    <div class="div-top">
+<div class="col-lg-12" style="background-color: #c0c0c0;min-height: 700px;min-width: 1250px;">
+    <div class="div-top" style="margin-top: 10px;">
         <h3>接口域名[host]:<?php echo Yii::$app->params['api']['host']; ?></h3>
     </div>
     <div class="div-left">
