@@ -6,21 +6,21 @@
  * Time: 13:00
  */
 
-$params= require (__DIR__.'/params.php');
-$db=require (__DIR__.'/db.php');
+$params = require(__DIR__ . '/params.php');
+$db = require(__DIR__ . '/db.php');
 
-$config=[
-    'id'=>'yii-admin',
-    'basePath'=>dirname(__DIR__),
+$config = [
+    'id' => 'yii-admin',
+    'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
         'request' => [
-            'class'=>'common\core\Request',
+            'class' => 'common\core\Request',
             'cookieValidationKey' => '123456',
         ],
-        'response'=>[
-            'class'=>'common\core\Response',
-            'errorManager'=>'errorManager'
+        'response' => [
+            'class' => 'common\core\Response',
+            'errorManager' => 'errorManager'
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -29,13 +29,13 @@ $config=[
 //            'class'=>'yii\web\User',
             'identityClass' => 'backend\models\Admin',
             'enableAutoLogin' => false,
-            'loginUrl'=>array('admin/login'),
+            'loginUrl' => array('admin/login'),
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'errorManager'=>[
-            'class'=>'app\component\exception\ErrorManager'
+        'errorManager' => [
+            'class' => 'app\component\exception\ErrorManager'
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -46,7 +46,7 @@ $config=[
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning','info'],
+                    'levels' => ['error', 'warning', 'info'],
                 ],
             ],
         ],
@@ -55,19 +55,18 @@ $config=[
             'enablePrettyUrl' => true,
             'enableStrictParsing' => false,
             'showScriptName' => false,
-            'rules' => require (__DIR__.'/url.php')
+            'rules' => require(__DIR__ . '/url.php')
         ],
     ],
-    'modules'=>[
-        'admin'=>'app\modules\admin\Module',
-        'api'=>'app\modules\api\Module',
-        'frontend'=>'app\modules\frontend\Module',
-        'doc'=>'app\modules\doc\Module',
+    'modules' => [
+        'admin' => 'app\modules\admin\Module',
+        'api' => 'app\modules\api\Module',
+        'frontend' => 'app\modules\frontend\Module'
     ],
     'params' => $params,
 ];
 
-if (! YII_ENV_PROD) {
+if (!YII_ENV_PROD) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
@@ -76,10 +75,13 @@ if (! YII_ENV_PROD) {
     ];
 
     $config['bootstrap'][] = 'gii';
+    $config['modules']['doc'] = [
+        'class' => 'app\modules\doc\Module'
+    ];
+
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
         'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
-
 return $config;

@@ -67,7 +67,7 @@
 </style>
 <div class="div-global">
     <div class="div-top">
-        <h3>接口域名[host]:<?php echo Yii::$app->params['api']['host']; ?></h3>
+        <h3>接口域名[host]:<?php echo Yii::$app->params['api']['host'];?></h3>
     </div>
     <div class="div-left">
         <?php
