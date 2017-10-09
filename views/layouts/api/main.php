@@ -23,7 +23,7 @@ $this->beginPage();
         <?php $this->head() ?>
         <link rel="shortcut icon" href="/favicon.ico"/>
     </head>
-    <body class="page-container-bg-solid page-md">
+    <body class="page-container-bg-solid page-md" style="background-color:#c0c0c0">
     <?php $this->beginBody() ?>
     <?php echo $content;?>
     <?php $this->endBody() ?>

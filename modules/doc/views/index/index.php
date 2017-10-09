@@ -26,10 +26,17 @@
         border-top: 1px double #C0C9CC;
     }
 
+    .div-global{
+        width:1250px;
+        margin:auto;
+        min-height: 800px;
+        display: table;
+    }
+
     .div-top {
-        width: 1206px;
-        padding-left:20px;
-        margin-bottom: 10px;
+        width: 1250px;
+        padding-left: 20px;
+        margin: 5px 0 5px 0;
         background-color: #F8F8F8;
         min-height: 10px;
         display: table;
@@ -45,11 +52,12 @@
     .div-right {
         padding: 20px 20px 20px 20px;
         font-size: 15px !important;
-        width: 1000px;
+        width: 1045px;
         display: table;
         float: left;
         margin-left: 5px;
-        min-height: 700px;
+        min-height: 800px;
+        display: table;
         background-color: #F8F8F8;
     }
 
@@ -57,8 +65,8 @@
         color: #FF0000;
     }
 </style>
-<div class="col-lg-12" style="background-color: #c0c0c0;min-height: 700px;min-width: 1250px;">
-    <div class="div-top" style="margin-top: 10px;">
+<div class="div-global">
+    <div class="div-top">
         <h3>接口域名[host]:<?php echo Yii::$app->params['api']['host']; ?></h3>
     </div>
     <div class="div-left">
@@ -101,7 +109,8 @@
         </h4>
 
         <h4>4、将signString字符串转换成小写 (
-            <span class="font-red">http://yii-admin.com/api/index/get-list&get&amend=true&cate=1&page=1&pagesize=10</span>
+            <span
+                class="font-red">http://yii-admin.com/api/index/get-list&get&amend=true&cate=1&page=1&pagesize=10</span>
             )
         </h4>
 
@@ -137,9 +146,7 @@
             <th>参数类型</th>
             <th>注释</th>
         </tr>
-        <% for(var i=0;i
-        <param.length
-            ;i++){%>
+        <% for(var i=0;i<param.length ;i++){%>
             <tr>
                 <td><%=param[i].name%></td>
                 <td><%=param[i].type%></td>
