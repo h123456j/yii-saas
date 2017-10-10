@@ -6,6 +6,7 @@
  * Time: 13:00
  */
 
+$component = require(__DIR__ . '/' . YII_MODULE . '/component.php');
 $params = require(__DIR__ . '/params.php');
 $db = require(__DIR__ . '/db.php');
 
@@ -13,7 +14,7 @@ $config = [
     'id' => 'yii-admin',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'components' => [
+    'components' => array_merge($component, [
         'request' => [
             'class' => 'common\core\Request',
             'cookieValidationKey' => '123456',
@@ -24,12 +25,6 @@ $config = [
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
-        ],
-        'user' => [
-//            'class'=>'yii\web\User',
-            'identityClass' => 'backend\models\Admin',
-            'enableAutoLogin' => false,
-            'loginUrl' => array('admin/login'),
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -57,7 +52,7 @@ $config = [
             'showScriptName' => false,
             'rules' => require(__DIR__ . '/url.php')
         ],
-    ],
+    ]),
     'modules' => [
         'admin' => 'app\modules\admin\Module',
         'api' => 'app\modules\api\Module',

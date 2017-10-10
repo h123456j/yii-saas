@@ -7,4 +7,5 @@
  RewriteCond %{REQUEST_FILENAME} !-d
 
  # otherwise forward it to index.php
- RewriteRule . /index.php
+ RewriteRule ^admin/ /admin.php
+ RewriteRule ^api/|^doc /api.php

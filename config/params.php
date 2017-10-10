@@ -6,9 +6,8 @@
  * Time: 13:06
  */
 
-return [
-    'api'=>[
-        'host'=>'https://it919.cn/api/'
-    ],
-    'secretKey'=>'17eaf9a57c751b340d502734c29e4735'
-];
+$params=require(__DIR__.'/'.YII_MODULE.'/params.php');
+
+return array_merge($params,[
+
+]);
