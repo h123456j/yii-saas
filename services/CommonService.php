@@ -26,32 +26,41 @@ class CommonService extends BaseService
      */
     public function upload()
     {
+        if(empty($_FILES['files']))
+            throw  new Exception('请先选择文件', Error::FILE_FOR_EMPTY);
+
         $files = $_FILES['files'];
         $result = [];
-        if (empty($files))
-            throw  new Exception('文件不能为空', Error::FILE_FOR_EMPTY);
         $date = date('Y-m-d');
-        $dir = _UPLOAD_ROOT_ . '/' . $date;
 
+        $dir = _UPLOAD_ROOT_ . '/' . $date;
         if (!is_dir($dir))
             mkdir($dir);
 
+        $data = [];
         foreach ($files['name'] as $key => $item) {
             if (!empty($item)) {
                 $ext = pathinfo($item, PATHINFO_EXTENSION);
-                if (!in_array($ext, $this->fileType)) {
+                if (!in_array(strtolower($ext), $this->fileType)) {
                     throw new Exception($item . '文件格式不合法', Error::FILE_FOR_ILLEGAL_TYPE);
                 } else {
-                    $temp = $files['tmp_name'][$key];
-                    $fileName = md5($item . time()) . '.' . $ext;
-                    $path = $dir . '/' . $fileName;
-                    if (move_uploaded_file($temp, $path)) {
-                        $result[] = [
-                            'name' => $item,
-                            'path' => '/uploads/' . $date . '/' . $fileName
-                        ];
-                    }
+                    $data[] = [
+                        'name' => $item,
+                        'ext' => $ext,
+                        'file' => $files['tmp_name'][$key]
+                    ];
                 }
+            }
+        }
+
+        foreach ($data as $item) {
+            $fileName = md5($item['name'] . time()) . '.' . $item['ext'];
+            $path = $dir . '/' . $fileName;
+            if (move_uploaded_file($item['file'], $path)) {
+                $result[] = [
+                    'name' => $item['name'],
+                    'path' => '/uploads/' . $date . '/' . $fileName
+                ];
             }
         }
         return $result;
