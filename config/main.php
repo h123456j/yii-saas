@@ -23,6 +23,9 @@ $config = [
             'class' => 'common\core\Response',
             'errorManager' => 'errorManager'
         ],
+        'session'=>[
+            'class'=>'app\component\session\BaseSession'
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

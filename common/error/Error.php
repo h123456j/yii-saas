@@ -19,6 +19,9 @@ class Error
 
     const FILE_FOR_EMPTY='200000';//空文件
     const FILE_FOR_ILLEGAL_TYPE='200001';//非法文件类型
-    
+
+    const USER_NEED_TO_LOGIN='300000';//用户需登录
+    const USER_SESSION_INVALID='300001';//登录态失效
+
 
 }
