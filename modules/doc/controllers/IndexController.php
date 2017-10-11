@@ -8,19 +8,18 @@
 
 namespace doc\controllers;
 
-
 use yii\helpers\VarDumper;
 use yii\web\Controller;
 
 class IndexController extends Controller
 {
 
-    public $layout='/api/main';
+    public $layout = '/api/main';
 
     public function actionIndex()
     {
         $controllers = $this->getControllers();
-        return $this->render('index',['controllers'=>$controllers]);
+        return $this->render('index', ['controllers' => $controllers]);
     }
 
     /**
@@ -43,18 +42,16 @@ class IndexController extends Controller
                 if (!empty($methodList)) {
                     foreach ($methodList as $method) {
                         $name = $method->getName();
-
                         if (!strncasecmp($name, 'action', 6) && $name != 'actions') {
                             $actionName = $actionName = strtolower(substr($name, 6));
-
                             $properties = $this->extractComments($method->getDocComment());
                             $actions[$actionName] = array_merge([
                                 'id' => $actionName,
                                 'name' => '未填写name',
-                                'method'=>'GET',
-                                'url'=>'',
-                                'param'=>[],
-                                'response'=>''
+                                'method' => 'GET',
+                                'url' => '',
+                                'param' => [],
+                                'response' => ''
                             ], $properties);
                         }
                     }
@@ -113,13 +110,9 @@ class IndexController extends Controller
             'brief' => '未填写'
         ];
         $part = explode(' ', trim($paramInfo));
-        if (!empty($part[0]))
-            $param['type'] = $part[0];
-        if (!empty($part[1]))
-            $param['name'] = $part[1];
-        if (!empty($part[2]))
-            $param['brief'] = $part[2];
-        $param['name'] = str_replace('$', '', $param['name']);
+        $param['type'] = array_shift($part);
+        $param['name'] = str_replace('$','',array_shift($part));
+        $param['brief'] = implode(' ',$part);
         return $param;
     }
 

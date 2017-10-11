@@ -33,6 +33,35 @@ class ForumController extends BaseController
     }
 
     /**
+     * @api-name 文章发布
+     * @api-method POST
+     * @api-url forum/article-publish
+     * @api-param string $uid 用户id
+     * @api-param string $sid 会话id
+     * @api-param string $content 文章内容
+     * @api-response{
+     *      "data":"1",(0-失败 1-成功)
+     * }
+     */
+    public function actionArticlePublish()
+    {
+
+    }
+
+    /**
+     * @api-name 文章详情
+     * @api-method GET
+     * @api-url forum/article-info
+     * @api-param int $articleId 文章id
+     * @api-response{
+     * }
+     */
+    public function actionArticleInfo()
+    {
+
+    }
+
+    /**
      * @api-name 文章评论列表
      * @api-method GET
      * @api-url forum/comment-list

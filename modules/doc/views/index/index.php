@@ -78,7 +78,7 @@
             <div>
                 <li class="li-controller"><?php echo $controller['name'] ?></li>
                 <?php foreach ($controller['actions'] as $ak=>$action) { ?>
-                    <li class="li-action" style="<?php echo $ck==0?'display:block;':'display:none;'?>" data-json='<?php echo json_encode($action); ?>'>
+                    <li class="li-action"  data-json='<?php echo json_encode($action); ?>'>
                         &nbsp;&nbsp;&nbsp;<?php echo $action['name'] ?></li>
                 <?php } ?>
             </div>
@@ -145,15 +145,15 @@
             <th colspan="3" style="text-align: center;">请求参数说明</th>
         </tr>
         <tr>
-            <th>参数名</th>
-            <th>参数类型</th>
+            <th style="min-width: 100px;">参数名</th>
+            <th style="min-width: 100px;">参数类型</th>
             <th>注释</th>
         </tr>
         <% for(var i=0;i<param.length ;i++){%>
             <tr>
                 <td><%=param[i].name%></td>
                 <td><%=param[i].type%></td>
-                <td><%=param[i].brief%></td>
+                <td><%=#param[i].brief%></td>
             </tr>
             <%}%>
             <tr>
