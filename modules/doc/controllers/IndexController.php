@@ -20,9 +20,6 @@ class IndexController extends Controller
     public function actionIndex()
     {
         $controllers = $this->getControllers();
-//        VarDumper::dump($controllers,10,true);die;
-//        header('Content-Type: application/json');
-//        echo json_encode($controllers);die;
         return $this->render('index',['controllers'=>$controllers]);
     }
 
@@ -53,7 +50,11 @@ class IndexController extends Controller
                             $properties = $this->extractComments($method->getDocComment());
                             $actions[$actionName] = array_merge([
                                 'id' => $actionName,
-                                'name' => '未填写name'
+                                'name' => '未填写name',
+                                'method'=>'GET',
+                                'url'=>'',
+                                'param'=>[],
+                                'response'=>''
                             ], $properties);
                         }
                     }

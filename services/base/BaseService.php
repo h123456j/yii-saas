@@ -9,13 +9,12 @@
 namespace app\services\base;
 
 
-
 use app\component\service\Interceptor;
 
 class BaseService
 {
 
-    private static $_instance=[];
+    private static $_instance = [];
 
     /**
      * 私有化构造方法
@@ -40,9 +39,9 @@ class BaseService
      */
     public static function instance()
     {
-        $class=get_called_class();
-        if(!isset(self::$_instance[$class]))
-            self::$_instance[$class]=new Interceptor(new $class());
+        $class = get_called_class();
+        if (!isset(self::$_instance[$class]))
+            self::$_instance[$class] = new Interceptor(new $class());
         return self::$_instance[$class];
     }
 

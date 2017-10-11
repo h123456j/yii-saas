@@ -17,6 +17,8 @@
         line-height: 40px;
         font-size: 16px;
         font-weight: bold;
+        color: #ffffff;
+        border-bottom: 1px double #ffffff;
         background-color: #0a6aa1;
     }
 
@@ -71,15 +73,16 @@
     </div>
     <div class="div-left">
         <?php
+        $ck=0;
         foreach ($controllers as $controller) { ?>
             <div>
                 <li class="li-controller"><?php echo $controller['name'] ?></li>
-                <?php foreach ($controller['actions'] as $action) { ?>
-                    <li class="li-action" data-json='<?php echo json_encode($action); ?>'>
+                <?php foreach ($controller['actions'] as $ak=>$action) { ?>
+                    <li class="li-action" style="<?php echo $ck==0?'display:block;':'display:none;'?>" data-json='<?php echo json_encode($action); ?>'>
                         &nbsp;&nbsp;&nbsp;<?php echo $action['name'] ?></li>
                 <?php } ?>
             </div>
-        <?php } ?>
+        <?php $ck++;} ?>
     </div>
     <div class="div-right">
         <h4>接口签名生成规则说明(每次请求接口时带上签名参数sign=''):</h4>
