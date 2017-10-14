@@ -9,8 +9,10 @@
 namespace app\component\filter;
 
 
+use app\component\session\SessionContainer;
 use common\error\Error;
 use yii\base\ActionFilter;
+use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
 
 defined('YII_REQUEST_START_TIME') or define('YII_REQUEST_START_TIME', '');
@@ -52,13 +54,15 @@ class ApiSessionFilter extends ActionFilter
             return null;
         }
         $session = \Yii::$app->getSession();
-        $userInfo = $session->readSession($uid);
-        if (empty($userInfo) || $userInfo->valid_time < time()) {
+        $sessionInfo = $session->readSession($uid);
+        if (empty($sessionInfo) || $sessionInfo->valid_time < time()) {
             $session->destroySession($uid);
             if ($throwError)
                 \Yii::$app->response->error(Error::USER_SESSION_INVALID, '登录态失效，请重新登录');
             return null;
         }
+        $temp=ArrayHelper::toArray($sessionInfo);
+        SessionContainer::init($temp);
         return true;
     }
 

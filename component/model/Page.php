@@ -18,12 +18,12 @@ class Page extends DataModel
     private $totalPage;
 
 
-    public function __construct($page = 1, $size = 15, $count = 0, $config = [])
+    public function __construct($page = 1, $size = 20, $count = 0, $config = [])
     {
         $page = (int)$page;
         $size = (int)$size;
         $this->page = $page >= 1 ? $page : 1;
-        $this->size = $page >= 1 ? $size : 30;
+        $this->size = $page >= 1 ? $size : 20;
         $this->count = (int)$count;
         parent::__construct($config);
     }

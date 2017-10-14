@@ -11,6 +11,11 @@ use Yii;
 class BaseActiveRecord extends \yii\db\ActiveRecord
 {
 
+    public static function getTablePrefix($db='db')
+    {
+        return Yii::$app->get($db)->tablePrefix;
+    }
+
     public function __construct($config=[])
     {
         if(is_string($config)){

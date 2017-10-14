@@ -62,7 +62,7 @@ class Interceptor
             $this->info(sprintf("\r\n%s \r\nresult:%s\r\n", $funcName, Json::encode($data)));
         } catch (Exception $e) {
             $this->error(sprintf("\r\n%s \r\ndbException:{code:%s,message:%s,dbMessage:%s}", $funcName, $e->getCode(), $e->getMessage(), VarDumper::dumpAsString($e->errorInfo)));
-            \Yii::$app->errorHandler->push(Error::COMMON_DB, '数据库故障');
+            \Yii::$app->errorManager->push(Error::COMMON_DB, '数据库故障');
             $data = null;
         } catch (\yii\base\Exception $e) {
             $this->error("\r\n%s \r\nException:{code:%s,message:%s}", $funcName, $e->getCode(), $e->getMessage());

@@ -66,6 +66,12 @@
     .font-red {
         color: #FF0000;
     }
+
+    .doc-top{
+        width: 100%;
+        min-height: 100px;
+        border-bottom: 1px double #0a2640;
+    }
 </style>
 <div class="div-global">
     <div class="div-top">
@@ -85,6 +91,14 @@
         <?php $ck++;} ?>
     </div>
     <div class="div-right">
+        <div class="doc-top">
+            <p style="text-align: center;font-size: 18px;font-weight: bold;">接口请求公共参数约定</p>
+            <h4>page:页码，选填，默认为1 pageSize 每页数据条数,选填,默认20</h4>
+            <p style="text-align: center;font-size: 18px;font-weight: bold;">接口返回公共参数约定</p>
+            <h4>成功返回:{"status":1,"result":{"data":"返回数据","sid":"登录用户会话id","nonce":1507960717[时间戳]}}</h4>
+            <h4>失败返回:{"status":0,"result":{"code":null[错误码],"message":null[错误描述],"sid":"","nonce":1507960729}}</h4>
+        </div>
+
         <h4>接口签名生成规则说明(每次请求接口时带上签名参数sign=''):</h4>
 
         <h4>设备授权密钥 [secretKey]:17eaf9a57c751b340d502734c29e4735</h4>

@@ -19,6 +19,7 @@ class IndexController extends Controller
     public function actionIndex()
     {
         $controllers = $this->getControllers();
+//        VarDumper::dump($controllers,10,true);die;
         return $this->render('index', ['controllers' => $controllers]);
     }
 

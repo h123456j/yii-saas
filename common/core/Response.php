@@ -9,6 +9,7 @@
 namespace common\core;
 
 
+use app\component\session\SessionContainer;
 use yii\helpers\VarDumper;
 
 class Response extends \yii\web\Response
@@ -50,7 +51,7 @@ class Response extends \yii\web\Response
         $result=[
             'code'=>$code,
             'message'=>$message,
-            'sid'=>$this->session,
+            'sid'=>SessionContainer::getSid(),
             'nonce'=>time()
         ];
 
@@ -70,7 +71,7 @@ class Response extends \yii\web\Response
             $this->format=self::FORMAT_JSONP;
 
         $this->data=[
-            'ret'=>false,
+            'status'=>0,
             'result'=>$result
         ];
 
@@ -88,7 +89,7 @@ class Response extends \yii\web\Response
         $result=[];
 
         $result['data']=$data;
-        $result['sid']=$this->session;
+        $result['sid']=SessionContainer::getSid();
         $result['nonce']=time();
 
         $callback=\Yii::$app->request->get('callback');
@@ -96,13 +97,13 @@ class Response extends \yii\web\Response
         if(!empty($callback)){
             $this->format=self::FORMAT_JSONP;
             $this->data=[
-                'ret'=>true,
+                'status'=>1,
                 'result'=>$data,
                 'callback'=>$callback
             ];
         }else{
             $this->data=[
-                'ret'=>true,
+                'status'=>1,
                 'result'=>$result
             ];
         }
