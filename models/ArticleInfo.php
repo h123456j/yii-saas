@@ -53,11 +53,10 @@ class ArticleInfo extends \app\models\table\ArticleInfo
      */
     public static function getArticleList(Page $pager, $cate = null, $type = null, $scenario = null)
     {
-        $prefix = self::getTablePrefix();
         $query = self::find()
             ->select('ai.*,ac.title as cateTitle')
-            ->from($prefix . 'article_info ai')
-            ->leftJoin($prefix . 'article_cate ac', 'ai.cate_code=ac.cate_code')
+            ->from(self::getFullName('article_info ai'))
+            ->leftJoin(self::getFullName('article_cate ac'), 'ai.cate_code=ac.cate_code')
             ->offset($pager->getOffset())
             ->limit($pager->getLimit());
         if (!empty($cate))

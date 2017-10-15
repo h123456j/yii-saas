@@ -28,9 +28,9 @@
         border-top: 1px double #C0C9CC;
     }
 
-    .div-global{
-        width:1250px;
-        margin:auto;
+    .div-global {
+        width: 1250px;
+        margin: auto;
         min-height: 800px;
         display: table;
     }
@@ -67,7 +67,7 @@
         color: #FF0000;
     }
 
-    .doc-top{
+    .doc-top {
         width: 100%;
         min-height: 100px;
         border-bottom: 1px double #0a2640;
@@ -75,28 +75,33 @@
 </style>
 <div class="div-global">
     <div class="div-top">
-        <h3>接口域名[host]:<?php echo Yii::$app->params['api']['host'];?></h3>
+        <h3>接口域名[host]:<?php echo Yii::$app->params['api']['host']; ?></h3>
     </div>
     <div class="div-left">
         <?php
-        $ck=0;
+        $ck = 0;
         foreach ($controllers as $controller) { ?>
             <div>
                 <li class="li-controller"><?php echo $controller['name'] ?></li>
-                <?php foreach ($controller['actions'] as $ak=>$action) { ?>
-                    <li class="li-action"  data-json='<?php echo json_encode($action); ?>'>
+                <?php foreach ($controller['actions'] as $ak => $action) { ?>
+                    <li class="li-action" data-json='<?php echo json_encode($action); ?>'>
                         &nbsp;&nbsp;&nbsp;<?php echo $action['name'] ?></li>
                 <?php } ?>
             </div>
-        <?php $ck++;} ?>
+            <?php $ck++;
+        } ?>
     </div>
     <div class="div-right">
         <div class="doc-top">
             <p style="text-align: center;font-size: 18px;font-weight: bold;">接口请求公共参数约定</p>
             <h4>page:页码，选填，默认为1 pageSize 每页数据条数,选填,默认20</h4>
+
             <p style="text-align: center;font-size: 18px;font-weight: bold;">接口返回公共参数约定</p>
             <h4>成功返回:{"status":1,"result":{"data":"返回数据","sid":"登录用户会话id","nonce":1507960717[时间戳]}}</h4>
             <h4>失败返回:{"status":0,"result":{"code":null[错误码],"message":null[错误描述],"sid":"","nonce":1507960729}}</h4>
+            <h4>分页对象:"page": {"current": 1,[当前页]"total": 1,[总页数]"count": 1,[总条数]"size": 20,[每页展示条数]}</h4>
+            <h4>部分异常返回说明：100000=>'数据库故障','100001'=>'未知错误','100003'=>'签名错误','100004'=>'非法参数'</h4>
+            <h4>'300000'=>'用户未登录','300001'=>'登录态失效'</h4>
         </div>
 
         <h4>接口签名生成规则说明(每次请求接口时带上签名参数sign=''):</h4>
@@ -163,7 +168,8 @@
             <th style="min-width: 100px;">参数类型</th>
             <th>注释</th>
         </tr>
-        <% for(var i=0;i<param.length ;i++){%>
+        <% for(var i=0;i
+        <param.length ;i++){%>
             <tr>
                 <td><%=param[i].name%></td>
                 <td><%=param[i].type%></td>

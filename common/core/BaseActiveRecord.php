@@ -16,6 +16,11 @@ class BaseActiveRecord extends \yii\db\ActiveRecord
         return Yii::$app->get($db)->tablePrefix;
     }
 
+    public static function getFullName($tableName,$db='db')
+    {
+        return Yii::$app->get($db)->tablePrefix.$tableName;
+    }
+
     public function __construct($config=[])
     {
         if(is_string($config)){

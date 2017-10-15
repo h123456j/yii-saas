@@ -19,7 +19,6 @@ class IndexController extends Controller
     public function actionIndex()
     {
         $controllers = $this->getControllers();
-//        VarDumper::dump($controllers,10,true);die;
         return $this->render('index', ['controllers' => $controllers]);
     }
 
@@ -86,6 +85,7 @@ class IndexController extends Controller
                 } else {
                     $p = trim(str_replace('*', '', trim($matches[2][$i], '/')));
                     if (in_array($propertyName, ['response'])) {
+                        $p=str_replace(' ','&nbsp;',$p);
                         $p = nl2br($p);
                     }
                     $properties[$matches[1][$i]] = $p;
