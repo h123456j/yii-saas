@@ -11,6 +11,7 @@ namespace api\controllers;
 
 use app\component\controller\BaseController;
 use app\component\filter\ApiSessionFilter;
+use yii\helpers\VarDumper;
 
 /**
  * Class User
@@ -24,9 +25,23 @@ class UserController extends BaseController
     {
         return array_merge(parent::behaviors(),[
             'session'=>[
-                'class'=>ApiSessionFilter::className()
+                'class'=>ApiSessionFilter::className(),
+                'except'=>['login','we-chat-login']
             ]
         ]);
+    }
+
+    /**
+     * @api-name  微信授权登录
+     * @api-url user/we-chat-login
+     * @api-method POST
+     * @api-param string $code 微信授权登录code
+     * @api-response {
+     * }
+     */
+    public function actionWeChatLogin()
+    {
+
     }
 
     /**

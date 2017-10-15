@@ -23,6 +23,10 @@ $config = [
             'class' => 'common\core\Response',
             'errorManager' => 'errorManager'
         ],
+        'curl'=>[
+            'class'=>'app\component\http\Curl',
+            'options'=>[]
+        ],
         'session'=>[
             'class'=>'app\component\session\BaseSession'
         ],
