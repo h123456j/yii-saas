@@ -10,6 +10,7 @@ namespace app\component\http;
 
 
 use yii\base\Component;
+use yii\helpers\VarDumper;
 
 class Curl extends Component
 {
@@ -22,11 +23,11 @@ class Curl extends Component
     private $_config = [
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HEADER => true,
+        CURLOPT_HEADER => false,
         CURLOPT_VERBOSE => true,
         CURLOPT_AUTOREFERER => true,
-        CURLOPT_CONNECTTIMEOUT => 30,
-        CURLOPT_TIMEOUT => 30,
+        CURLOPT_CONNECTTIMEOUT => 60,
+        CURLOPT_TIMEOUT => 60,
         CURLOPT_SSL_VERIFYPEER => false,
         CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:5.0) Gecko/20110619 Firefox/5.0'
     ];
@@ -35,7 +36,7 @@ class Curl extends Component
     {
         try{
             $this->_ch=curl_init();
-            $options=is_array($this->options)?array_merge($this->options,$this->_config):$this->_config;
+            $options=is_array($this->options)?$this->options+$this->_config:$this->_config;
             $this->setOptions($options);
         }catch (\Exception $e){
            exit('curl 组件初始化失败');
@@ -47,8 +48,7 @@ class Curl extends Component
         $this->setOption(CURLOPT_URL, $url);
         $this->response = curl_exec($this->_ch);
         if (!curl_errno($this->_ch)) {
-            $headerSize = curl_getinfo($this->_ch, CURLINFO_HEADER_SIZE);
-            return substr($this->response, $headerSize);
+            return json_decode($this->response,true);
         } else {
             throw new \Exception(curl_error($this->_ch));
         }
@@ -57,7 +57,7 @@ class Curl extends Component
     public function get($url, $params = [])
     {
         $this->setOption(CURLOPT_HTTPGET, true);
-        $url = strpos($url, '?') === false ? '?' : '' . http_build_query($params);
+        $url = $url.(strpos($url, '?') === false ? '?' : '' ). http_build_query($params);
         return $this->exec($url);
     }
 

@@ -55,13 +55,13 @@ class ApiSessionFilter extends ActionFilter
         }
         $session = \Yii::$app->getSession();
         $sessionInfo = $session->readSession($uid);
-        if (empty($sessionInfo) || $sessionInfo->valid_time < time()) {
+        if (empty($sessionInfo) || $sid != $sessionInfo->sid || $sessionInfo->valid_time < time()) {
             $session->destroySession($uid);
             if ($throwError)
                 \Yii::$app->response->error(Error::USER_SESSION_INVALID, '登录态失效，请重新登录');
             return null;
         }
-        $temp=ArrayHelper::toArray($sessionInfo);
+        $temp = ArrayHelper::toArray($sessionInfo);
         SessionContainer::init($temp);
         return true;
     }

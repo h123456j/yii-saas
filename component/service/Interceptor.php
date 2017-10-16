@@ -76,7 +76,7 @@ class Interceptor
             $this->error(sprintf("\r\n%s \r\nException: { code: %s, trace's message: %s }", $funcName, $e->getCode(),
                 $e->getTraceAsString()));
 
-            \Yii::$app->errorManager->push(Error::COMMON_UNKNOWN, '系统错误');
+            \Yii::$app->errorManager->push(Error::COMMON_UNKNOWN, '服务出错');
 
             $data = null;
         }

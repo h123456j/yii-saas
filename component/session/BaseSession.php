@@ -15,34 +15,34 @@ class BaseSession extends Session
 {
     /**
      * 获取用户session
-     * @param string $id
+     * @param string $uid
      * @return array|null|\yii\db\ActiveRecord
      */
-    public function readSession($id)
+    public function readSession($uid)
     {
-        return \app\models\Session::getSession($id);
+        return \app\models\Session::getSession($uid);
     }
 
     /**
      * session写入
-     * @param string $id
+     * @param string $uid
      * @param string $data
      * @param null $duration
      * @return bool
      */
-    public function writeSession($id,$data,$duration=null)
+    public function writeSession($uid,$data,$duration=null)
     {
-       return \app\models\Session::updateSession($id,$data,$duration);
+       return \app\models\Session::updateSession($uid,$data,$duration);
     }
 
     /**
      * 删除用户session
-     * @param string $id
+     * @param string $uid
      * @return int
      */
-    public function destroySession($id)
+    public function destroySession($uid)
     {
-        return \app\models\Session::delSession($id);
+        return \app\models\Session::delSession($uid);
     }
 
 }
