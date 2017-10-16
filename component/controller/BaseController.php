@@ -18,9 +18,9 @@ class BaseController extends Controller
     public function behaviors()
     {
         return [
-//            'sign'=>[
-//                'class'=>Signature::className()
-//            ]
+            'sign'=>[
+                'class'=>Signature::className()
+            ]
         ];
     }
 
