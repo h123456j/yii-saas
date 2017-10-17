@@ -8,6 +8,7 @@
 
 namespace doc\controllers;
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
 
@@ -19,6 +20,7 @@ class IndexController extends Controller
     public function actionIndex()
     {
         $controllers = $this->getControllers();
+        ArrayHelper::multisort($controllers,'rank',SORT_DESC);
         return $this->render('index', ['controllers' => $controllers]);
     }
 
@@ -59,6 +61,7 @@ class IndexController extends Controller
 
                 $controllers[substr($class, 0, -10)] = array_merge([
                     'id' => substr($class, 0, -10),
+                    'rank'=>0,
                     'actions' => $actions,
                     'name' => '未填写name'
                 ], self::extractComments($rc->getDocComment(), 'controller-'));

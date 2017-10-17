@@ -20,6 +20,7 @@ use yii\helpers\VarDumper;
  * Class HomeController
  * @package api\controllers
  * @controller-name 主页模块
+ * @controller-rank 13
  */
 class HomeController extends BaseController
 {
@@ -83,8 +84,6 @@ class HomeController extends BaseController
     public function actionAppointment()
     {
         $request = \Yii::$app->request;
-        $uid = $request->post('uid');
-        $sid = $request->post('sid');
         $cate = $request->post('cate');
         if (empty($cate))
             $cate = 1;

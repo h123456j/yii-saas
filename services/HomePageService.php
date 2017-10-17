@@ -124,7 +124,7 @@ class HomePageService extends BaseService
         $bridgeLoanAppointment->contacts_tel = $content['contactsTel'];
         $bridgeLoanAppointment->money = $content['money'];
         $bridgeLoanAppointment->appointment_date = $content['appointmentDate'];
-        $bridgeLoanAppointment->useage_days = $content['useDays'];
+        $bridgeLoanAppointment->usage_days = $content['useDays'];
         $bridgeLoanAppointment->recently_date = $content['recentlyDate'];
         $bridgeLoanAppointment->last_date = $content['lastDate'];
         $bridgeLoanAppointment->property = $content['property'];
@@ -163,7 +163,7 @@ class HomePageService extends BaseService
         $redeemBuildingAppointment->building_name = $content['buildingName'];
         $redeemBuildingAppointment->bank = $content['bank'];
         $redeemBuildingAppointment->money = $content['money'];
-        $redeemBuildingAppointment->useage_days = $content['useDays'];
+        $redeemBuildingAppointment->usage_days = $content['useDays'];
         $redeemBuildingAppointment->remark = $content['remark'];
         $redeemBuildingAppointment->files = $content['files'];
         $redeemBuildingAppointment->audit_time = $redeemBuildingAppointment->create_time = $redeemBuildingAppointment->update_time = date('Y-m-d H:i:s');

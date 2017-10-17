@@ -32,6 +32,7 @@
         width: 1250px;
         margin: auto;
         min-height: 800px;
+        background-color: #ffffff;
         display: table;
     }
 
@@ -59,7 +60,7 @@
         float: left;
         margin-left: 5px;
         min-height: 800px;
-        display: table;
+        height: 100%;
         background-color: #F8F8F8;
     }
 

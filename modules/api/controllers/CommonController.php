@@ -17,6 +17,7 @@ use yii\helpers\VarDumper;
  * Class CommonController
  * @package api\controllers
  * @controller-name 公共模块
+ * @controller-rank 15
  */
 class CommonController extends BaseController
 {

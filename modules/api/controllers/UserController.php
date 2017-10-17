@@ -20,6 +20,7 @@ use yii\helpers\VarDumper;
  * Class User
  * @package api\controllers
  * @controller-name 用户模块
+ * @controller-rank 20
  */
 class UserController extends BaseController
 {
@@ -221,18 +222,38 @@ class UserController extends BaseController
      * @api-url user/appointment-list
      * @api-param string $uid 用户id
      * @api-param string $sid 会话id
-     * @api-param int $cate 预约类别（0-all；1-过桥预约；2-物业预约；3-赎楼预约；4-其他预约；默认为0）
+     * @api-param int $cate 预约类别（1-过桥预约；2-物业预约；3-赎楼预约；4-其他预约；默认为1）
      * @api-param int $page 页码（选填）
      * @api-param int $pageSize 分页数（选填）
      * @api-response {
+     *     "data": {
+     *         "page": {
+     *            "current": 1,
+     *            "total": 1,
+     *            "count": 1,
+     *            "size": 20
+     *         },
+     *       "items": [
+     *           {
+     *        "id": 8,记录id
+     *        "title": "测试借款主体",标题
+     *        "date": "2017-10-15 17:28:32",时间
+     *        "status": 1,状态（1-未审核 2-已审核）
+     *        "statusDesc": "未审核",状态描述
+     *         }
+     *      ...
+     *       ]
+     * }
      * }
      */
     public function actionAppointmentList()
     {
         $cate = (int)\Yii::$app->request->post('cate');
+        if (empty($cate))
+            $cate = 1;
         $page = \Yii::$app->request->post('page');
         $pageSize = \Yii::$app->request->post('pageSize');
-        $pager = new Page();
+        $pager = new Page($page, $pageSize);
         $result = UserService::instance()->getAppointmentList($cate, $pager);
         if (is_null($result))
             \Yii::$app->response->error();

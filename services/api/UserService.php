@@ -11,7 +11,11 @@ namespace app\services\api;
 
 use app\component\helpers\Util;
 use app\component\session\SessionContainer;
+use app\models\BridgeLoanAppointment;
+use app\models\EstateAppointment;
 use app\models\Message;
+use app\models\OtherAppointment;
+use app\models\RedeemBuildingAppointment;
 use app\models\UserInfo;
 use app\services\base\BaseService;
 use common\error\Error;
@@ -152,20 +156,29 @@ class UserService extends BaseService
         return $messageInfo;
     }
 
-    public function getAppointmentList($cate,$pager,$scenario='list')
+    public function getAppointmentList($cate, $pager, $scenario = 'list')
     {
-        switch($cate){
+        switch ($cate) {
             case 1:
+                $data = BridgeLoanAppointment::getAppointmentList($pager, SessionContainer::getUid(), $scenario);
                 break;
             case  2:
+                $data = EstateAppointment::getAppointmentList($pager, SessionContainer::getUid(), $scenario);
                 break;
             case  3:
+                $data = RedeemBuildingAppointment::getAppointmentList($pager, SessionContainer::getUid(), $scenario);
                 break;
             case  4:
+                $data = OtherAppointment::getAppointmentList($pager, SessionContainer::getUid(), $scenario);
                 break;
             default:
+                $data=[];
                 break;
         }
+        return [
+            'page' => $pager,
+            'items' => $data
+        ];
     }
 
 }
