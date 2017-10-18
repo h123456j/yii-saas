@@ -15,10 +15,10 @@ class Message extends \app\models\table\Message
 {
 
 
-    const TYPE_FOR_COMMON=1;
-    const TYPE_FOR_ARTICLE=2;
-    const TYPE_FOR_APPOINTMENT=3;
-    const TYPE_FOR_ESTATE_AUDIT=4;//物业审核
+    const TYPE_FOR_COMMON = 1;
+    const TYPE_FOR_ARTICLE = 2;
+    const TYPE_FOR_APPOINTMENT = 3;
+    const TYPE_FOR_ESTATE_AUDIT = 4;//物业审核
 
     public static $typeDesc = [1 => '普通消息', 2 => '文章消息', 3 => '预约反馈', 4 => '物业审核'];
 
@@ -35,10 +35,10 @@ class Message extends \app\models\table\Message
                 },
                 'status'
             ],
-            'info'=>[
+            'info' => [
                 'id',
                 'title',
-                'createTime'=>'create_time',
+                'createTime' => 'create_time',
                 'content'
             ]
         ];
@@ -49,9 +49,7 @@ class Message extends \app\models\table\Message
         $query = Message::find()
             ->select('*')
             ->where(['uid' => $uid])
-            ->orderBy(['create_time' => SORT_DESC])
-            ->offset($pager->getOffset())
-            ->limit($pager->getLimit());
+            ->orderBy(['create_time' => SORT_DESC]);
 
         if (!empty($cate)) {
             if (is_array($cate)) {
@@ -61,7 +59,9 @@ class Message extends \app\models\table\Message
             }
         }
         $pager->setCount($query->count());
-        $data = $query->all();
+        $data = $query->offset($pager->getOffset())
+            ->limit($pager->getLimit())->all();
+
         if (empty($data) || is_null($scenario))
             return $data;
 

@@ -32,14 +32,14 @@ class ArticleInfo extends \app\models\table\ArticleInfo
                 'author',
                 'createTime' => 'create_time'
             ],
-            'info'=>[
+            'info' => [
                 'id',
                 'title',
                 'author',
-                'createTime'=>'create_time',
+                'createTime' => 'create_time',
                 'content',
-                'lookNum'=>'look_num',
-                'commentNum'=>'comment_num'
+                'lookNum' => 'look_num',
+                'commentNum' => 'comment_num'
             ]
         ];
     }
@@ -56,9 +56,7 @@ class ArticleInfo extends \app\models\table\ArticleInfo
         $query = self::find()
             ->select('ai.*,ac.title as cateTitle')
             ->from(self::getFullName('article_info ai'))
-            ->leftJoin(self::getFullName('article_cate ac'), 'ai.cate_code=ac.cate_code')
-            ->offset($pager->getOffset())
-            ->limit($pager->getLimit());
+            ->leftJoin(self::getFullName('article_cate ac'), 'ai.cate_code=ac.cate_code');
         if (!empty($cate))
             $query->where(['cate_code' => $cate]);
 
@@ -75,7 +73,9 @@ class ArticleInfo extends \app\models\table\ArticleInfo
         }
 
         $pager->setCount($query->count());
-        $data = $query->all();
+        $data = $query->offset($pager->getOffset())
+            ->limit($pager->getLimit())->all();
+
         if (empty($data) || is_null($scenario))
             return $data;
 

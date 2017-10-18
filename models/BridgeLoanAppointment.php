@@ -61,15 +61,15 @@ class BridgeLoanAppointment extends \app\models\table\BridgeLoanAppointment
         $query = self::find()
             ->select('*')
             ->where(['is_deleted' => 0])
-            ->orderBy(['create_time' => SORT_DESC, 'update_time' => SORT_DESC])
-            ->offset($pager->getOffset())
-            ->limit($pager->getLimit());
+            ->orderBy(['create_time' => SORT_DESC, 'update_time' => SORT_DESC]);
 
         if (!is_null($uid))
             $query->andWhere(['uid' => $uid]);
 
         $pager->setCount($query->count());
-        $data = $query->all();
+        $data = $query->offset($pager->getOffset())
+            ->limit($pager->getLimit())->all();
+
         if (empty($data) || is_null($scenario))
             return $data;
 
