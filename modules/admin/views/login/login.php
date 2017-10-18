@@ -4,7 +4,7 @@
 <div class="logo"></div>
 <div id="form-body" class="content">
     <?php
-    $form = \yii\bootstrap\ActiveForm::begin([
+    $form = \app\component\widgets\ActiveForm::begin([
         'options' => [
             'role' => 'form',
             'class' => 'form-horizontal ajax-form',
