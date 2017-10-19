@@ -7,13 +7,13 @@
 
 namespace backend\assets;
 
-use yii\web\AssetBundle;
+use app\assets\BaseAssetBundle;
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class LoginAsset extends AssetBundle
+class LoginAsset extends BaseAssetBundle
 {
 
     public $basePath = '@webroot';

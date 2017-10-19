@@ -12,5 +12,7 @@ return array_merge($params,[
     'we-chart'=>[
         'appid'=>'wx843fbc69f150bc81',
         'secret'=>'9304e25d3767e3133fcce591c0379411'
-    ]
+    ],
+    'version'=>'',
+    'update_time'=>'2017-10-19'
 ]);

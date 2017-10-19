@@ -7,13 +7,13 @@
 
 namespace app\assets\common;
 
-use yii\web\AssetBundle;
+use app\assets\BaseAssetBundle;
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class IeAsset extends AssetBundle
+class IeAsset extends BaseAssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
