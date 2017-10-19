@@ -70,8 +70,7 @@ class BaseController extends Controller
      */
     public function init()
     {
-        /* 解析数据库配置，解析后存放在Yii::$app->params['web']中 */
-//        Yii::$app->params['web'] = Config::lists();
+
     }
 
     /**

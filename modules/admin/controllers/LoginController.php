@@ -32,8 +32,8 @@ class LoginController extends BaseController
      */
     public function actionLogin()
     {
-//        if (! Yii::$app->user->isGuest)
-//            return $this->redirect(['/admin/index']);
+        if (! Yii::$app->user->isGuest)
+            return $this->redirect(['/admin/index']);
 
         $model = new LoginForm();
         if (Yii::$app->request->isPost) {
