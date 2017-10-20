@@ -8,9 +8,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use backend\assets\AppAsset;
 use backend\models\Menu;
-AppAsset::register($this); // 注册前端资源
-$context = $this->context;
-$allMenu = Menu::getMenus($context->module->id,$context->id,$context->action->id); // 获取后台栏目
+AppAsset::register($this);
+$menuTree = Menu::getMenus(); // 获取后台栏目
 $this->beginPage();
 ?>
 <!DOCTYPE html>
@@ -40,7 +39,7 @@ $this->beginPage();
                         <span></span>
                     </div>
                 </div>
-                <?php echo $this->render('@app/views/layouts/admin/menu.php', ['allMenu'=>$allMenu]); ?>
+                <?php echo $this->render('@app/views/layouts/admin/menu.php', ['data'=>$menuTree['main']]); ?>
                 <form class="search-form" action="" method="GET">
                     <div class="input-group">
                         <input name="s" type="text" class="form-control" placeholder="Search..." >
@@ -80,7 +79,7 @@ $this->beginPage();
         <div class="page-container">
             <div class="page-sidebar-wrapper">
                 <div class="page-sidebar navbar-collapse collapse">
-                    <?php echo $this->render('@app/views/layouts/admin/menu-sub.php', ['allMenu'=>$allMenu]); ?>
+                    <?php echo $this->render('@app/views/layouts/admin/menu-sub.php', ['data'=>$menuTree['_child']]); ?>
                 </div>
             </div>
             <div class="page-content-wrapper">

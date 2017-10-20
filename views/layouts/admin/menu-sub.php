@@ -6,12 +6,12 @@
         </div>
     </li>
 
-    <?php if (!empty($allMenu['child']) && is_array($allMenu['child'])) {
-        foreach ($allMenu['child'] as $menu) {
+    <?php if (!empty($data)) {
+        foreach ($data as $menu) {
             if (empty($menu['_child'])) {
                 ?>
                 <li class="nav-item <?php echo isset($menu['class'])?'active':''?>">
-                    <a href="<?= \yii\helpers\Url::toRoute($menu['url']) ?>" nav="<?= $menu['url'] ?>" class="nav-link">
+                    <a href="<?php echo  empty($menu['url'])?'javascript:void()':\yii\helpers\Url::toRoute($menu['url'])?>" nav="<?= $menu['url'] ?>" class="nav-link">
                         <i class="icon-docs"></i>
                         <span class="title"><?= $menu['title'] ?></span>
                     </a>

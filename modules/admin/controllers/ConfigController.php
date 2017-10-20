@@ -14,7 +14,7 @@ class ConfigController extends BaseController
 
     public function actionIndex()
     {
-        $this->getView()->title='全局配置';
+        $this->getView()->title='配置模块';
         return $this->render('index');
     }
 
