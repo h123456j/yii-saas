@@ -29,6 +29,7 @@ $this->beginPage();
     </head>
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
     <?php echo  \common\widgets\modal\ContentModalWidget::widget([]);?>
+    <div class="div-load"></div>
     <?php $this->beginBody() ?>
         <div class="page-header navbar navbar-fixed-top">
             <div class="page-header-inner ">

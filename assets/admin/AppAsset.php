@@ -23,14 +23,14 @@ class AppAsset extends BaseAssetBundle
         'static/global/plugins/font-awesome/css/font-awesome.min.css',
         'static/global/plugins/simple-line-icons/simple-line-icons.min.css',
         'static/global/plugins/bootstrap/css/bootstrap.min.css',
-        'static/other/css/style.css',
+//        'static/other/css/style.css',
         'static/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css',
     ];
     /* 全局JS文件 */
     public $js = [
         'static/common/js/jquery.js',
         'static/global/plugins/js.cookie.min.js',
-        'static/pages/scripts/jquery.form.js',
+        'static/common/js/jquery.form.js',
         'static/global/plugins/bootstrap/js/bootstrap.min.js',
         'static/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js',
         'static/global/plugins/jquery-slim-scroll/jquery.slimscroll.min.js',
@@ -44,7 +44,7 @@ class AppAsset extends BaseAssetBundle
     /* 依赖关系 */
     public $depends = [
         'app\assets\common\IeAsset',
-        'yii\bootstrap\BootstrapAsset',
+//        'yii\bootstrap\BootstrapAsset',
     ];
     /**
      * ------------------------------------------

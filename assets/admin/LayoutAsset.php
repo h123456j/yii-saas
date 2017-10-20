@@ -29,9 +29,9 @@ class LayoutAsset extends BaseAssetBundle
     /* 全局JS文件 */
     public $js = [
         'static/layouts/layout/scripts/layout.js',
-        'static/layouts/layout/scripts/demo.js',
+//        'static/layouts/layout/scripts/demo.js',
         'static/layouts/global/scripts/quick-sidebar.min.js',
-        'static/other/js/common.js'
+//        'static/other/js/common.js'
     ];
     /* 选项 */
     //public $jsOptions = ['condition' => 'lt IE9'];

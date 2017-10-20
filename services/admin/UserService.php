@@ -36,35 +36,5 @@ class UserService extends BaseService
         return UserGroup::getUserGroupList($pager);
     }
 
-    /**
-     * 获取菜单栏树状列表
-     * @return array
-     */
-    public function getMenuList()
-    {
-        $data=Menu::getMenuList();
-        if(empty($data))
-            return [];
-        return self::getMenuTree($data);
-    }
-
-    /**
-     * 组装树状节点
-     * @param $data
-     * @param int $pid
-     * @return array
-     */
-    private static function getMenuTree($data,$pid=0)
-    {
-        $result=[];
-        foreach($data as $key=>$item){
-            if($item['pid']==$pid){
-                unset($data[$key]);
-                $item['_child']=self::getMenuTree($data,$item['id']);
-                $result[]=$item;
-            }
-        }
-        return $result;
-    }
 
 }

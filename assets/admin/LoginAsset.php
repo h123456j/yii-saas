@@ -23,7 +23,7 @@ class LoginAsset extends BaseAssetBundle
     public $css = [
         'static/global/css/components-rounded.min.css',
         'static/global/css/plugins.min.css',
-        'static/pages/css/login.css',
+        'static/common/css/login.css',
     ];
     /* 全局JS文件 */
     public $js = [

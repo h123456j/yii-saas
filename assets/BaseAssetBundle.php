@@ -15,6 +15,9 @@ use yii\web\AssetBundle;
 class BaseAssetBundle extends AssetBundle
 {
 
+    public $basePath = '@webroot';
+    public $baseUrl = '@web';
+
     private static $updateTime = '2017-10';
 
 
