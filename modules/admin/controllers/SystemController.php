@@ -58,7 +58,7 @@ class SystemController extends BaseController
      */
     public function actionMenuList()
     {
-        $this->getView()->title = '菜单栏列表';
+        $this->getView()->title = '导航栏列表';
         $result=MenuService::instance()->getMenuList();
         return $this->render('menu_list',['data'=>$result]);
     }

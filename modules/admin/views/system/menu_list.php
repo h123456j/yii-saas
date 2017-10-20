@@ -16,7 +16,7 @@
     <table class="table">
         <thead>
         <th>导航栏标题</th>
-        <th>操&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作</th>
+        <th><span style="padding: 0 7px;">操</span><span style="padding-left: 40px;">作</span></th>
         </thead>
         <tbody id="menu-list-body">
 
