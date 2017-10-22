@@ -11,7 +11,7 @@
             if (empty($menu['_child'])) {
                 ?>
                 <li class="nav-item <?php echo isset($menu['class'])?'active':''?>">
-                    <a href="<?php echo  empty($menu['url'])?'javascript:void()':\yii\helpers\Url::toRoute($menu['url'])?>" nav="<?= $menu['url'] ?>" class="nav-link">
+                    <a href="<?php echo  empty($menu['url'])?'javascript:void()':\app\component\helpers\Util::getUrl($menu['url']);?>" nav="<?= $menu['url'] ?>" class="nav-link">
                         <i class="icon-docs"></i>
                         <span class="title"><?= $menu['title'] ?></span>
                     </a>
@@ -27,7 +27,7 @@
                         <?php if (is_array($menu['_child'])): ?>
                             <?php foreach ($menu['_child'] as $v): ?>
                                 <li class="nav-item" style="<?php echo isset($v['class'])?'background-color: #36C6D3;':''; ?>">
-                                    <a style="<?php echo isset($v['class'])?'color:#FFFFFF;':'';?>" href="<?= \yii\helpers\Url::toRoute($v['url']) ?>" nav="<?= $v['url'] ?>" class="nav-link ">
+                                    <a style="<?php echo isset($v['class'])?'color:#FFFFFF;':'';?>" href="<?echo \app\component\helpers\Util::getUrl($v['url'])?>" nav="<?= $v['url'] ?>" class="nav-link ">
                                         <?= $v['title'] ?>
                                     </a>
                                 </li>

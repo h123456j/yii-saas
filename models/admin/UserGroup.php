@@ -22,6 +22,7 @@ class UserGroup extends \app\models\table\UserGroup
     public static function getUserGroupList($pager)
     {
         $query=static ::find()
+            ->where(['status'=>1])
             ->offset($pager->getOffset())
             ->limit($pager->getLimit());
         $pager->setCount($query->count());

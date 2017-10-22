@@ -6,33 +6,40 @@
 $(document).ready(function () {
     //ajax提交表单
     $('#form-body').on('submit', '.ajax-form', function (e) {
-        var _this = this;
-        e.preventDefault();
-        loadShow();
-        $('.alert-danger').hide();
+        var _this = this
+        $("button[type=submit]").removeClass('btn-primary').unbind('click');
         $(this).ajaxSubmit({
             'success': function (data) {
+                $("button[type=submit]").addClass('btn-primary').bind('click');
+                if (data)
+                    data = JSON.parse(data);
                 if ($("#module-login").length > 0) {
                     var data = JSON.parse(data);
-                    if (data.ret == true){
+                    if (data.ret == true) {
                         window.location.href = BaseUrl + '/admin/index';
-                    }else {
+                    } else {
                         $('.alert-danger').show();
                     }
-                }else {
-
+                } else {
+                    showAlertMessage(data['message']);
                 }
-                loadHide();
             },
             'error': function () {
-                loadHide();
+                $("button[type=submit]").addClass('btn-primary').bind('click');
+                showAlertMessage('服务出错') ;
             },
             'beforeSubmit': function () {
-                loadShow();
+
             }
         });
         return false;
     });
+
+
+    $("#btn-message-close").click(function () {
+        $("#top-message").hide();
+    });
+
 });
 
 function loadShow() {
@@ -41,4 +48,13 @@ function loadShow() {
 
 function loadHide() {
     $(".div-load").hide();
+}
+
+function showAlertMessage(message)
+{
+    message =message || '提示信息';
+    var alertMessage=$("#alert-modal");
+    console.log(alertMessage);
+    alertMessage.find(".modal-body").html(message);
+    alertMessage.modal();
 }

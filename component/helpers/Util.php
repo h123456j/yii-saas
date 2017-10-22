@@ -53,9 +53,18 @@ class Util
      * @param $salt
      * @return string
      */
-    public static function generatePassword($password,$salt)
+    public static function generatePassword($password, $salt)
     {
-        return md5($password.'-'.$salt);
+        return md5($password . '-' . $salt);
+    }
+
+    public static function getUrl($uri, $params = [])
+    {
+        if (!empty($params))
+            $uri = strpos($uri, '?') === false ? $uri . '?' . http_build_query($params) : $uri . '&' . http_build_query($params);
+        if (strpos($uri, 'http') !== false)
+            return $uri;
+        return \yii\helpers\Url::toRoute($uri);
     }
 
 }

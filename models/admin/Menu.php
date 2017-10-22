@@ -23,9 +23,9 @@ class Menu extends \app\models\table\Menu
     public function rules()
     {
         return [
-            [['title', 'url'], 'required'],
+            [['title'], 'required','message'=>'该字段不能为空'],
             [['pid', 'sort', 'hide', 'status'], 'integer'],
-            [['title', 'group'], 'string', 'max' => 50],
+            [['title'], 'string', 'max' => 50],
             [['url'], 'string', 'max' => 255]
         ];
     }

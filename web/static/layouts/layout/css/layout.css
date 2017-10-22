@@ -2171,7 +2171,7 @@ Page content
 .page-content-white .page-title {
     /*margin: 25px 0;*/
     font-size: 24px;
-    height:40px;
+    height: 40px;
     border-bottom: 1px double #364150;
 }
 
@@ -3298,15 +3298,62 @@ Page Loading
     transition: all 2s;
 }
 
-.div-load{
+.div-load {
     position: fixed;
-    top:0;
+    top: 0;
     display: none;
     background: #000000 url("../../../images/loading.gif") no-repeat scroll 50% 50%;
-    right:0;
-    bottom:0;
-    left:0;
-    z-index: 99;
-    filter:alpha(opacity=20);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999999;
+    filter: alpha(opacity=20);
     opacity: 0.2;
+}
+
+.fixed {
+    position: fixed !important;
+}
+
+.alert {
+    color: #c09853;
+    font-weight: bold;
+    border: 1px solid #fbeed5;
+    background-color: #fcf8e3;
+}
+
+#top-message {
+    display: block;
+    top: 40px;
+    right: 20px;
+    z-index: 9999;
+    margin-top: 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    overflow: hidden;
+    font-size: 16px;
+}
+
+.alert-error {
+    color: white;
+    border-color: #eed3d7;
+    background-color: #FF6666;
+}
+
+.alert-success {
+    color: #468847;
+    background-color: #CCFF99;
+    border-color: #eed3d7;
+}
+
+@media (max-width: 768px) {
+    .alert_left {
+        left: 20px;
+    }
+}
+
+@media (min-width: 768px) {
+    .alert_left {
+        left: 245px;
+    }
 }

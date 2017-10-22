@@ -5,33 +5,38 @@
 
 $(document).ready(function(){
 
-
-    $(".content-modal").click(function(){
-        var title=$(this).attr('modal-title'),
-            url=$(this).attr('modal-url');
-
+    $(document).on('click','.content-modal',function(){
+        loadShow();
+        var title=$(this).attr('data-title'),
+            url=$(this).attr('data-url');
+        contentModal.setIframe(url);
         contentModal.showContentModal(title);
     });
 
     var contentModal={
 
-        modal:$('#content-model'),
-        modalTitle:$('#content-model').find('.modal-title'),
-        modalIframe:$('#content-model').find('.modal-iframe'),
+        modal:$('#content-modal'),
 
         showContentModal:function(title){
-            this.modalTitle.html(title);
+            this.modal.find('.modal-title').html(title);
             this.modal.modal();
+            this.modal.find('.modal-iframe').load(function(){
+                loadHide();
+            });
         },
 
         setModalTitle:function(title){
-            this.modalTitle.html(title);
+            $('#content-modal').find('.modal-title').html(title);
         },
 
         setIframe:function(url){
-            this.modalIframe.attr("src",url);
+            $('#content-modal').find('.modal-iframe').attr("src",url);
         }
 
     };
 
 });
+
+function closeContentModal(){
+    $('#content-modal').modal('hide');
+}

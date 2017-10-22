@@ -16,7 +16,7 @@ class MenuAsset extends BaseAssetBundle
 
 
     public $css=[
-
+        '/static/common/css/menu.css'
     ];
 
     public $js=[

@@ -5,7 +5,7 @@
                 <li class="classic-menu-dropdown <?php if (isset($menu['class'])) {
                     echo 'active';
                 } ?>">
-                    <a href="<?php echo empty($menu['url'])?'':\yii\helpers\Url::toRoute($menu['url']);?>">
+                    <a href="<?php echo empty($menu['url'])?'':\app\component\helpers\Util::getUrl($menu['url']);?>">
                         <?= $menu['title'] ?>
                         <?php if (isset($menu['class'])) {
                             echo '<span class="selected"></span>';

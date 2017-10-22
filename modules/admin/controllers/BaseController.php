@@ -21,8 +21,8 @@ use yii\data\ActiveDataProvider;
 class BaseController extends Controller
 {
 
-    const DEFAULT_PAGE=1;//默认页码
-    const DEFAULT_PAGE_SIZE=15;//默认每页数量
+    const DEFAULT_PAGE = 1;//默认页码
+    const DEFAULT_PAGE_SIZE = 15;//默认每页数量
 
     /**
      * ---------------------------------------
@@ -42,12 +42,12 @@ class BaseController extends Controller
                     ]
                 ]
             ],
-            'auth' => [
-                'class' => AuthFilter::className(),
-                'callback' =>function($data){
-                    return $this->redirect(Url::toRoute(['public/no-auth']));
-                }
-            ]
+//            'auth' => [
+//                'class' => AuthFilter::className(),
+//                'callback' =>function($data){
+//                    return $this->redirect(Url::toRoute(['public/no-auth']));
+//                }
+//            ]
         ];
     }
 
@@ -86,6 +86,24 @@ class BaseController extends Controller
         // 返回JSON数据格式到客户端 包含状态信息
         header('Content-Type:application/json; charset=utf-8');
         return json_encode($data);
+    }
+
+    protected static function success($message)
+    {
+        return json_encode(['status' => 1, 'message' => $message]);
+    }
+
+    protected static function error($code = null, $message = null)
+    {
+        if ($code == null && $message == null) {
+            $code = Yii::$app->errorManager->getCode();
+            $message = Yii::$app->errorManager->getMessage();
+        }
+        return json_encode([
+            'status' => 0,
+            'code' => $code,
+            'message' => $message
+        ]);
     }
 
 }

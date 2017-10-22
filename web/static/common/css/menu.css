@@ -1,0 +1,47 @@
+
+.div-group-list{
+    display: none;
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    top:0;
+    height: 90%;
+    z-index: 1000;
+    border-radius: 10px;
+    border:1px double #DDDCDC;
+    background-color: #000000;
+    filter:alpha(opacity=80);
+    -moz-opacity:0.8;
+    -khtml-opacity: 0.8;
+    opacity: 0.8;
+}
+
+.div-group-list li{
+    list-style: none;
+    float:left;
+    cursor: pointer;
+    padding: 7px 20px;
+    background-color: #848484;
+    color: #ffffff;
+    border-radius: 5px;
+    margin: 3px 5px;
+    font-size: 16px;
+}
+
+.li-selected{
+    background-color: #00a2d4 !important;
+}
+
+.div-group-list .div-footer{
+    width:100%;
+    position: absolute;
+    text-align: center;
+    height: 10%;
+    min-height: 40px;
+    clear: both;
+    bottom: 5px;
+}
+
+.div-group-list .div-footer button{
+    margin:10px 10px 0 10px;
+}

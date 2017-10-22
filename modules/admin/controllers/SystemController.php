@@ -53,17 +53,6 @@ class SystemController extends BaseController
     }
 
     /**
-     * @auth_route system/menu-list
-     * @return string
-     */
-    public function actionMenuList()
-    {
-        $this->getView()->title = '导航栏列表';
-        $result=MenuService::instance()->getMenuList();
-        return $this->render('menu_list',['data'=>$result]);
-    }
-
-    /**
      * 管理员列表
      * @param int $page
      * @param int $pageSize

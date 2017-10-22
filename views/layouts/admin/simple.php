@@ -21,8 +21,13 @@ $this->beginPage();
         <meta content="网站描述" name="description"/>
         <?php $this->head() ?>
         <link rel="shortcut icon" href="/favicon.ico"/>
+        <script language="JavaScript">
+            var BaseUrl = '<?echo  Yii::$app->request->getHostInfo();?>';
+        </script>
     </head>
     <body class="page-container-bg-solid page-md">
+    <?php echo \common\widgets\modal\AlertMessageWidget::widget([]); ?>
+    <div class="div-load"></div>
     <?php $this->beginBody() ?>
     <?php echo $content;?>
     <?php $this->endBody() ?>

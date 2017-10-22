@@ -83,7 +83,7 @@ class BaseAssetBundle extends AssetBundle
      */
     protected static function dealFile($file)
     {
-        return strpos($file, '?') === false ? $file . '?update_time=' . self::$updateTime : $file . '&update_time=' . self::$updateTime;
+        return strpos($file, '?') === false ? $file . '?update_time=' . time(): $file . '&update_time=' . time();
     }
 
 }
