@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\error\Error;
 use Yii;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
@@ -38,9 +39,9 @@ class LoginController extends BaseController
         $model = new LoginForm();
         if (Yii::$app->request->isPost) {
             if ($model->load(Yii::$app->request->post(), 'info') && $model->login()) {
-                return $this->ajaxReturn(['ret'=>true,'data'=>1]);
+                return self::success('登录成功');
             } else {
-                return $this->ajaxReturn(['ret'=>false,'data'=>'']);
+                return self::error(Error::COMMON_PARAM_INVALID,'用户名或密码不存在');
             }
         } else {
             return $this->render('login', [

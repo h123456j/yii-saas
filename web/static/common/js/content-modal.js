@@ -1,42 +1,67 @@
 /**
  * Created by huangj06 on 2017/9/30.
  */
+$(document).ready(function () {
 
-
-$(document).ready(function(){
-
-    $(document).on('click','.content-modal',function(){
+    $(document).on('click', '.content-modal', function () {
         loadShow();
-        var title=$(this).attr('data-title'),
-            url=$(this).attr('data-url');
-        contentModal.setIframe(url);
-        contentModal.showContentModal(title);
+        var title = $(this).attr('data-title'),
+            url = $(this).attr('data-url');
+        ContentModal.setIframe(url);
+        ContentModal.showContentModal(title);
     });
-
-    var contentModal={
-
-        modal:$('#content-modal'),
-
-        showContentModal:function(title){
-            this.modal.find('.modal-title').html(title);
-            this.modal.modal();
-            this.modal.find('.modal-iframe').load(function(){
-                loadHide();
-            });
-        },
-
-        setModalTitle:function(title){
-            $('#content-modal').find('.modal-title').html(title);
-        },
-
-        setIframe:function(url){
-            $('#content-modal').find('.modal-iframe').attr("src",url);
-        }
-
-    };
-
 });
 
-function closeContentModal(){
-    $('#content-modal').modal('hide');
-}
+//内容模态框
+var ContentModal = {
+
+    contentModal: $('#content-modal'),
+
+    showContentModal: function (title) {
+        this.contentModal.find('.modal-title').html(title);
+        this.contentModal.modal();
+        this.contentModal.find('.modal-iframe').load(function () {
+            loadHide();
+        });
+    },
+
+    setModalTitle: function (title) {
+        this.contentModal.find('.modal-title').html(title);
+    },
+
+    setIframe: function (url) {
+        this.contentModal.find('.modal-iframe').attr("src", url);
+    },
+
+    closeContentModal: function (reload) {
+        reload = reload || false;
+        this.contentModal.modal('hide');
+        this.contentModal.on('hidden.bs.modal', function () {
+            if (reload)
+                window.location.reload();
+        });
+    }
+};
+
+//信息弹窗提示框
+var AlertMessageModal = {
+
+    alertModal: $('#alert-modal'),
+
+    showAlertMessage: function (message) {
+        message = message || '提示信息';
+        this.alertModal.find('.modal-body').html(message);
+        this.alertModal.modal();
+    },
+
+    afterCloseAlertMessage: function (closeParentContentModal, reload) {
+        closeParentContentModal = closeParentContentModal || false;
+        reload = reload || false;
+        this.alertModal.on('hidden.bs.modal', function () {
+            if (closeParentContentModal)
+                setTimeout(function () {
+                    parent.ContentModal.closeContentModal(reload);
+                }, 700);
+        });
+    }
+};

@@ -12,4 +12,4 @@ Yii::setAlias('@api/assets',dirname(__DIR__).'/assets/api');
 //model别名
 Yii::setAlias('@backend/models',dirname(__DIR__).'/models/admin');
 
-Yii::setAlias('@webroot',dirname(__DIR__).'/web/static');
+Yii::setAlias('@static',dirname(__DIR__).'/web/static');

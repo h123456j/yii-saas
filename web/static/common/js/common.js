@@ -5,31 +5,37 @@
 
 $(document).ready(function () {
     //ajax提交表单
-    $('#form-body').on('submit', '.ajax-form', function (e) {
-        var _this = this
+    $('#form-body').on('submit', '.ajax-form', function () {
+        var _this = $(this);
+        var closeContentModal = _this.hasClass('close-content-modal');
+        loadShow();
         $("button[type=submit]").removeClass('btn-primary').unbind('click');
         $(this).ajaxSubmit({
             'success': function (data) {
                 $("button[type=submit]").addClass('btn-primary').bind('click');
                 if (data)
                     data = JSON.parse(data);
-                if ($("#module-login").length > 0) {
-                    var data = JSON.parse(data);
-                    if (data.ret == true) {
+
+                if (data['status'] == 1) {
+                    if ($("#module-login").length > 0) {
                         window.location.href = BaseUrl + '/admin/index';
                     } else {
-                        $('.alert-danger').show();
+                        AlertMessageModal.showAlertMessage(data['message']);
+                        if (closeContentModal)
+                            AlertMessageModal.afterCloseAlertMessage(true, true);
                     }
                 } else {
-                    showAlertMessage(data['message']);
+                    AlertMessageModal.showAlertMessage(data['message']);
                 }
+                loadHide();
             },
             'error': function () {
                 $("button[type=submit]").addClass('btn-primary').bind('click');
-                showAlertMessage('服务出错') ;
+                AlertMessageModal.showAlertMessage('服务出错');
+                loadHide();
             },
             'beforeSubmit': function () {
-
+                loadShow();
             }
         });
         return false;
@@ -50,11 +56,6 @@ function loadHide() {
     $(".div-load").hide();
 }
 
-function showAlertMessage(message)
-{
-    message =message || '提示信息';
-    var alertMessage=$("#alert-modal");
-    console.log(alertMessage);
-    alertMessage.find(".modal-body").html(message);
-    alertMessage.modal();
+function ajaxDel(url,method,params){
+
 }

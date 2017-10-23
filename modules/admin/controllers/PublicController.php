@@ -2,15 +2,19 @@
 
 namespace backend\controllers;
 
-use app\common\core\Controller;
 use Yii;
 
 /**
  * 公共调用处理
  * @author longfei <phphome@qq.com>
  */
-class PublicController extends Controller
+class PublicController extends BaseController
 {
+
+    public function behaviors()
+    {
+        return [];
+    }
 
     /** @var bool */
     public $layout = false;
@@ -32,6 +36,11 @@ class PublicController extends Controller
     public function actionNoAuth()
     {
         return $this->render('no_auth');
+    }
+
+    public function action50x($message='服务出错')
+    {
+        return $this->render('error',['message'=>$message]);
     }
 
 }

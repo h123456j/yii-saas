@@ -1,11 +1,12 @@
 <?php
 \backend\assets\MenuAsset::register($this);
 ?>
+<div class="div-load"></div>
 <div id="form-body" class="col-md-12">
     <?php $form = \yii\bootstrap\ActiveForm::begin([
         'options' => [
             'role' => 'form',
-            'class' => 'form-horizontal ajax-form',
+            'class' => 'form-horizontal ajax-form close-content-modal',
             'enctype' => 'multipart/form-data'
         ]
     ]);
@@ -17,7 +18,7 @@
     ?>
 
     <div class="form-inline" style="text-align: center;">
-        <button class="btn btn-danger" type="button" onclick="parent.closeContentModal()">关&nbsp;闭</button>
+        <button class="btn btn-danger" type="button" onclick="parent.ContentModal.closeContentModal()">关&nbsp;闭</button>
         <button class="btn btn-primary" style="margin-left: 30px;" type="submit">提&nbsp;交</button>
     </div>
 

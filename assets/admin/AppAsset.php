@@ -23,6 +23,7 @@ class AppAsset extends BaseAssetBundle
         'static/global/plugins/font-awesome/css/font-awesome.min.css',
         'static/global/plugins/simple-line-icons/simple-line-icons.min.css',
         'static/global/plugins/bootstrap/css/bootstrap.min.css',
+        'static/common/css/common.css',
 //        'static/other/css/style.css',
         'static/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css',
     ];

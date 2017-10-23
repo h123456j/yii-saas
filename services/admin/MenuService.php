@@ -12,6 +12,7 @@ namespace app\services\admin;
 use app\component\helpers\Util;
 use app\services\base\BaseService;
 use backend\models\Menu;
+use common\error\Error;
 use yii\base\Exception;
 use yii\helpers\VarDumper;
 
@@ -48,7 +49,7 @@ class MenuService extends BaseService
         }catch (Exception $e){
             \Yii::error('数据插入失败:'.$e->getMessage());
             $transaction->rollBack();
-            throw new Exception('操作失败');
+            throw new Exception('操作失败',Error::COMMON_DB);
         }
     }
 

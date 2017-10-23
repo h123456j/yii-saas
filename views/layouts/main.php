@@ -125,6 +125,5 @@ $this->beginPage();
     <?php \backend\assets\LayoutAsset::register($this); ?>
     <?php $this->endBody() ?>
     </body>
-
     </html>
 <?php $this->endPage() ?>

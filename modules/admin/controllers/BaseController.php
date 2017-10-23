@@ -88,13 +88,28 @@ class BaseController extends Controller
         return json_encode($data);
     }
 
+    /**
+     * 成功返回
+     * @param $message
+     * @return string
+     */
     protected static function success($message)
     {
+        // 返回JSON数据格式到客户端 包含状态信息
+        header('Content-Type:application/json; charset=utf-8');
         return json_encode(['status' => 1, 'message' => $message]);
     }
 
+    /**
+     * 错误返回
+     * @param null $code
+     * @param null $message
+     * @return string
+     */
     protected static function error($code = null, $message = null)
     {
+        // 返回JSON数据格式到客户端 包含状态信息
+        header('Content-Type:application/json; charset=utf-8');
         if ($code == null && $message == null) {
             $code = Yii::$app->errorManager->getCode();
             $message = Yii::$app->errorManager->getMessage();

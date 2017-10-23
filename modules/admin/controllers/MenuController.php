@@ -26,7 +26,6 @@ class MenuController extends BaseController
     {
         $this->getView()->title = '导航栏列表';
         $result=MenuService::instance()->getMenuList();
-//        VarDumper::dump($result,10,true);die;
         return $this->render('list',['data'=>$result]);
     }
 
@@ -34,8 +33,14 @@ class MenuController extends BaseController
     {
         $this->layout='/admin/simple';
         $menu=new Menu();
+        $menuService=MenuService::instance();
         if(!is_null($id))
-            $menu=MenuService::instance()->getMenuById($id);
+            $menu=$menuService->getMenuById($id);
+
+        \Yii::$app->response->redirect(['/admin/public/50x','message'=>'数据查询失败']);
+        if($pid>0){
+            $menuInfo=$menuService->getMenuById($pid);
+        }
 
         if(\Yii::$app->request->getIsPost()){
             $data=\Yii::$app->request->post('Menu');

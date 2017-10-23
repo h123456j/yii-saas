@@ -4,6 +4,7 @@ defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 defined('YII_MODULE') or define('YII_MODULE','frontend');
 defined('_UPLOAD_ROOT_') or  define('_UPLOAD_ROOT_',__DIR__.'/uploads');
+defined('_STATIC_ROOT_') or  define('_STATIC_ROOT_',__DIR__.'/static');
 
 require(__DIR__ . '/../vendor/autoload.php');
 require(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
