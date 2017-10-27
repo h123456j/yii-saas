@@ -27,8 +27,8 @@ class SystemController extends BaseController
      */
     public function actionIndex()
     {
-        $this->getView()->title = '系统设置';
-        return $this->render('index');
+        $this->setPageTitle('系统设置');
+        return $this->render('/common');
     }
 
     /**
@@ -39,7 +39,7 @@ class SystemController extends BaseController
      */
     public function actionGroupList($page = self::DEFAULT_PAGE, $pageSize = self::DEFAULT_PAGE_SIZE)
     {
-        $this->getView()->title = '用户组列表';
+        $this->setPageTitle('用户组列表');
         $pager = new Page($page, $pageSize);
         $data = UserService::instance()->getUserGroupList($pager);
         $pagination = new Pagination(['totalCount' => $pager->getCount(), 'pageSize' => $pageSize]);
@@ -60,7 +60,7 @@ class SystemController extends BaseController
      */
     public function actionUserList($page = self::DEFAULT_PAGE, $pageSize = self::DEFAULT_PAGE_SIZE)
     {
-        $this->getView()->title = '管理员列表';
+        $this->setPageTitle('管理员列表');
         $pager = new Page($page, $pageSize);
         $data = UserService::instance()->getUserList($pager);
         $pagination = new Pagination(['totalCount' => $pager->getCount(), 'pageSize' => $pageSize]);

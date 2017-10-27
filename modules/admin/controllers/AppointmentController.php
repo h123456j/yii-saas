@@ -14,7 +14,13 @@ class AppointmentController extends BaseController
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $this->setPageTitle('预约模块');
+        return $this->render('/common');
+    }
+
+    public function actionBridgeLoadList()
+    {
+        return $this->render('bridge-list');
     }
 
 }

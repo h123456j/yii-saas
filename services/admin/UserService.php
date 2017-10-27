@@ -31,9 +31,27 @@ class UserService extends BaseService
      * @param $pager
      * @return array|\yii\db\ActiveRecord[]
      */
-    public function getUserGroupList($pager)
+    public function getUserGroupList($pager, $index = null)
     {
-        return UserGroup::getUserGroupList($pager);
+        $data = UserGroup::getUserGroupList($pager);
+        if (is_null($index) || empty($data))
+            return $data;
+        $list = [];
+        foreach ($data as $item) {
+            $list[$item->$index] = $item;
+        }
+        return $list;
+    }
+
+    public function getGroupListByIds($ids = [])
+    {
+        if (!is_array($ids))
+            $ids = explode(',', $ids);
+        return UserGroup::find()
+            ->select('*')
+            ->where(['status' => 1])
+            ->andWhere(['in', 'group_id', $ids])
+            ->all();
     }
 
 

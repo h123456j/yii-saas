@@ -10,11 +10,13 @@
             'enctype' => 'multipart/form-data'
         ]
     ]);
+    if($menu->pid>0)
+        echo $form->field($menu,'parentDesc')->input('text',['readonly'=>true])->label('父节点');
     echo $form->field($menu, 'title')->input('text')->label('导航标题');
     echo $form->field($menu, 'url')->input('text')->label('导航栏地址【选填参数,为导航目录是可以留空】');
     echo $form->field($menu, 'hide')->dropDownList(['显示', '隐藏'])->label('显示状态');
     echo $form->field($menu,'sort')->input('text')->label('排序参数【数值越大，排序越后】');
-    echo $form->field($menu, 'group_id')->input('text',['id'=>'input-group'])->label('所属用户组【选填，默认属于所有用户组】');
+    echo $form->field($menu, 'groupList')->input('text',['id'=>'input-group-list'])->label('所属用户组【选填，默认属于所有用户组】');
     ?>
 
     <div class="form-inline" style="text-align: center;">
@@ -25,6 +27,7 @@
     <?php
     echo $form->field($menu,'id')->input('hidden')->label('');
     echo $form->field($menu,'pid')->input('hidden')->label('');
+    echo $form->field($menu, 'group_id')->input('hidden',['id'=>'input-group-id'])->label('');
     $form->end(); ?>
 </div>
 

@@ -18,6 +18,7 @@ class Menu extends \app\models\table\Menu
     private static $menuList = [];
 
     public $parentDesc;
+    public $groupList;
 
     /**
      * 配置model规则

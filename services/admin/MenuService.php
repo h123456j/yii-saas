@@ -24,8 +24,8 @@ class MenuService extends BaseService
      */
     public function getMenuList()
     {
-        $data=Menu::getMenuList();
-        if(empty($data))
+        $data = Menu::getMenuList();
+        if (empty($data))
             return [];
         return self::getMenuTree($data);
     }
@@ -33,29 +33,31 @@ class MenuService extends BaseService
 
     public function update(Menu $menu)
     {
-        $menu->update_time=date('Y-m-d H:i:s');
-        $transaction=$menu::getDb()->beginTransaction();
-        try{
-            if($menu->save()){
-                if(empty($menu->pid)){
-                    $menu->tree_code=$menu->id;
-                }else{
-                    $menu->tree_code=$menu->tree_code.$menu::TREE_CODE_SEPARATOR.$menu->id;
+        $menu->update_time = date('Y-m-d H:i:s');
+        $transaction = $menu::getDb()->beginTransaction();
+        try {
+            if ($menu->save()) {
+                if (empty($menu->pid)) {
+                    $menu->tree_code = $menu->id;
+                } else {
+                    $temp = explode($menu::TREE_CODE_SEPARATOR, $menu->tree_code);
+                    if (!in_array($menu->id, $temp))
+                        $menu->tree_code = $menu->tree_code . $menu::TREE_CODE_SEPARATOR . $menu->id;
                 }
                 $menu->save();
             }
             $transaction->commit();
             return true;
-        }catch (Exception $e){
-            \Yii::error('数据插入失败:'.$e->getMessage());
+        } catch (Exception $e) {
+            \Yii::error('数据插入失败:' . $e->getMessage());
             $transaction->rollBack();
-            throw new Exception('操作失败',Error::COMMON_DB);
+            throw new Exception('操作失败', Error::COMMON_DB);
         }
     }
 
     public function getMenuById($id)
     {
-        return Menu::findOne(['id'=>$id,'status'=>1]);
+        return Menu::findOne(['id' => $id, 'status' => 1]);
     }
 
     /**
@@ -64,16 +66,16 @@ class MenuService extends BaseService
      * @param int $pid
      * @return array
      */
-    private static function getMenuTree($data,$pid=0)
+    private static function getMenuTree($data, $pid = 0)
     {
-        $result=[];
-        foreach($data as $key=>$item){
-            $item['addUrl']='/admin/menu/update?pid='.$item['id'];
-            $item['editUrl']='/admin/menu/update?id='.$item['id'];
-            if($item['pid']==$pid){
+        $result = [];
+        foreach ($data as $key => $item) {
+            $item['addUrl'] = '/admin/menu/update?pid=' . $item['id'];
+            $item['editUrl'] = '/admin/menu/update?id=' . $item['id'];
+            if ($item['pid'] == $pid) {
                 unset($data[$key]);
-                $item['_child']=self::getMenuTree($data,$item['id']);
-                $result[]=$item;
+                $item['_child'] = self::getMenuTree($data, $item['id']);
+                $result[] = $item;
             }
         }
         return $result;

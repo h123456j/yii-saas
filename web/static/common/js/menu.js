@@ -37,9 +37,9 @@ $(document).ready(function () {
         }
     });
 
-    $("#input-group").click(function () {
+    $("#input-group-list").click(function () {
         $(".li-group").removeClass('li-selected');
-        var groupIds = $(this).val();
+        var groupIds = $("#input-group-id").val();
         if (groupIds.length > 0) {
             var temp = groupIds.split(",");
             $.each(temp, function (key, item) {
@@ -59,8 +59,10 @@ $(document).ready(function () {
     });
 
     $(".group-confirm").click(function () {
-        var arr = hashTable.getKeys();
-        $("#input-group").val(arr.join());
+        var ids = hashTable.getKeys();
+        var names=hashTable.getValues();
+        $("#input-group-list").val(names.join());
+        $("#input-group-id").val(ids.join());
         groupList.hide();
     });
 

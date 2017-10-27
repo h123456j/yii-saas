@@ -73,6 +73,11 @@ class BaseController extends Controller
 
     }
 
+    public function setPageTitle($title)
+    {
+        $this->getView()->title =$title;
+    }
+
     /**
      * ------------------------------------------------
      * Ajax方式返回数据到客户端

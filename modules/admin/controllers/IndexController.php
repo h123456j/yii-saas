@@ -17,8 +17,8 @@ class IndexController extends BaseController
      */
     public function actionIndex()
     {
-        $this->getView()->title='后台管理系统';
-        return $this->render('index');
+        $this->setPageTitle('后台管理系统');
+        return $this->render('/common');
     }
 
 }
