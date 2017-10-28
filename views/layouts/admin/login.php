@@ -26,10 +26,12 @@ $this->beginPage();
         var BaseUrl = '<?=Yii::$app->request->getHostInfo();?>';
     </script>
     <body class="page-container-bg-solid page-md login">
+    <?php echo \common\widgets\modal\AlertMessageWidget::widget([]); ?>
     <div id="module-login"></div>
     <div class="div-load"></div>
-    <?php $this->beginBody() ?>
-    <?php echo $content;
+    <?php
+    $this->beginBody();
+     echo $content;
     \backend\assets\LayoutAsset::register($this);
     ?>
     <?php $this->endBody() ?>

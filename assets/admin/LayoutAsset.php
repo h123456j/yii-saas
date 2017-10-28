@@ -33,10 +33,5 @@ class LayoutAsset extends BaseAssetBundle
         'static/layouts/global/scripts/quick-sidebar.min.js',
 //        'static/other/js/common.js'
     ];
-    /* 选项 */
-    //public $jsOptions = ['condition' => 'lt IE9'];
-    /* 依赖关系 */
-    public $depends = [
-        'backend\assets\AppAsset',
-    ];
+
 }

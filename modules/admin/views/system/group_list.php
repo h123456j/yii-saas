@@ -1,7 +1,9 @@
-
+<?php
+\backend\assets\AppAsset::register($this);
+?>
 <div class="table-responsive">
     <div class="form-inline">
-        <button class="btn btn-primary content-modal"  data-title="添加用户组" data-url="<?php echo  Yii::$app->request->getHostInfo().'/admin/system/group-update'?>" >添加用户组</button>
+        <button class="btn btn-primary content-modal"  data-title="添加用户组" data-url="<?php echo  \app\component\helpers\Util::getUrl('system/group-update');?>" >添加用户组</button>
     </div>
     <table class="table table-bordered">
         <thead>
@@ -26,7 +28,9 @@
                     <td><?php echo $item->create_people;?></td>
                     <td><?php echo  $item->status=1?'有效':'禁用';?></td>
                     <td><?php echo  $item->update_time;?></td>
-                    <td></td>
+                    <td>
+
+                    </td>
                 </tr>
             <?php }}?>
         </tbody>

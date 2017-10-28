@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use app\component\filter\AuthFilter;
 use backend\models\Config;
+use common\error\Error;
 use Yii;
 use app\common\core\Controller;
 use yii\filters\AccessControl;
@@ -23,6 +24,8 @@ class BaseController extends Controller
 
     const DEFAULT_PAGE = 1;//默认页码
     const DEFAULT_PAGE_SIZE = 15;//默认每页数量
+
+    public $enableCsrfValidation = false;
 
     /**
      * ---------------------------------------
@@ -75,7 +78,18 @@ class BaseController extends Controller
 
     public function setPageTitle($title)
     {
-        $this->getView()->title =$title;
+        $this->getView()->title = $title;
+    }
+
+    public static function systemError()
+    {
+        return Yii::$app->response->redirect('/admin/public/50x');
+    }
+
+
+    public static function pageNotFind()
+    {
+        return Yii::$app->response->redirect('/admin/public/404');
     }
 
     /**
@@ -98,7 +112,7 @@ class BaseController extends Controller
      * @param $message
      * @return string
      */
-    protected static function success($message)
+    protected static function success($message='操作成功')
     {
         // 返回JSON数据格式到客户端 包含状态信息
         header('Content-Type:application/json; charset=utf-8');
@@ -121,8 +135,8 @@ class BaseController extends Controller
         }
         return json_encode([
             'status' => 0,
-            'code' => $code,
-            'message' => $message
+            'code' => empty($code) ? Error::COMMON_PARAM_INVALID : $code,
+            'message' => empty($message) ? Error::COMMON_PARAM_INVALID : $message,
         ]);
     }
 

@@ -60,13 +60,37 @@ $(document).ready(function () {
 
     $(".group-confirm").click(function () {
         var ids = hashTable.getKeys();
-        var names=hashTable.getValues();
+        var names = hashTable.getValues();
         $("#input-group-list").val(names.join());
         $("#input-group-id").val(ids.join());
         groupList.hide();
     });
 
 });
+
+
+function nodeDel(el) {
+    var id = $(el).parent().attr('data-id');
+    var url = '/admin/menu/del';
+    var params = {"id": id};
+    ajaxDel(el, url, params, false, function (res) {
+        if (res) {
+            delChildren(id,$(el).parent().parent());
+        }
+    });
+}
+
+function delChildren(id,el) {
+    var children = $('.tr_' + id);
+    el.remove();
+    if (children.length>0){
+        $.each(children,function(key,item){
+            var _this=$(item);
+            var id=_this.find('.td_nav').attr('data-id');
+            delChildren(id,_this);
+        });
+    }
+}
 
 function menuToggle(data, hide) {
     $.each(data, function (key, item) {
@@ -92,16 +116,16 @@ function menuHtml(data, level) {
     $.each(data, function (key, item) {
         if (item['pid'] == 0) {
             level = 0;
-            html += '<tr data-level="' + level + '"><td class="td_nav td_' + item['pid'] + '" data-id="' + item['id'] + '" data-hide="1">';
+            html += '<tr class="tr_' + item['pid'] + '" data-level="' + level + '"><td class="td_nav td_' + item['pid'] + '" data-id="' + item['id'] + '" data-hide="1">';
             html += '<span style="padding-right: 10px;" class="glyphicon glyphicon-folder-open"></span>' + item['title'] + '</td>';
         } else {
-            html += '<tr data-level="' + level + '"><td class="td_nav td_' + item['pid'] + '" data-id="' + item['id'] + '" data-hide="1" style="padding-left: ' + padding + 'px;">';
+            html += '<tr class="tr_' + item['pid'] + '" data-level="' + level + '"><td class="td_nav td_' + item['pid'] + '" data-id="' + item['id'] + '" data-hide="1" style="padding-left: ' + padding + 'px;">';
             html += '|--<span style="padding: 0 5px;" class="glyphicon glyphicon-file"></span>' + item['title'] + '</td>';
         }
         html += '<td data-id="' + item['id'] + '" data-tree-code="' + item['tree_code'] + '">';
-        html += '<span data-title="新增导航栏" data-url="'+item['addUrl']+'" style="padding: 0 5px;" class="span-add content-modal glyphicon glyphicon-plus"></span>|';
-        html += '<span data-title="导航栏编辑" data-url="'+item['editUrl']+'" style="color: #337AB7;padding: 0 5px;" class="span-edit content-modal glyphicon glyphicon-pencil"></span>|';
-        html += '<span style="color: #ff0000;padding: 0 5px;" class="span-del glyphicon glyphicon-trash"></span></td></tr>';
+        html += '<span data-title="新增导航栏" data-url="' + item['addUrl'] + '" style="padding: 0 5px;" class="span-add content-modal glyphicon glyphicon-plus"></span>|';
+        html += '<span data-title="导航栏编辑" data-url="' + item['editUrl'] + '" style="color: #337AB7;padding: 0 5px;" class="span-edit content-modal glyphicon glyphicon-pencil"></span>|';
+        html += '<span style="color: #ff0000;padding: 0 5px;" onclick="nodeDel(this)" class="tree-node-del glyphicon glyphicon-trash"></span></td></tr>';
         if (item['_child'].length > 0) {
             level += 1;
             html += menuHtml(item['_child'], level);

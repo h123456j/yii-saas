@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use app\component\helpers\Util;
 use Yii;
 use common\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
@@ -12,7 +13,7 @@ class Menu extends \app\models\table\Menu
     const MENU_ACTIVE = 'active';
     const MENU_HIDE_STATUS = 0;
     const MENU_STATUS_ACTIVE = 1;
-    const TREE_CODE_SEPARATOR='-';
+    const TREE_CODE_SEPARATOR = '-';
 
 
     private static $menuList = [];
@@ -20,13 +21,11 @@ class Menu extends \app\models\table\Menu
     public $parentDesc;
     public $groupList;
 
-    /**
-     * 配置model规则
-     */
+
     public function rules()
     {
         return [
-            [['title'], 'required','message'=>'该字段不能为空'],
+            [['title'], 'required', 'message' => '该字段不能为空'],
             [['pid', 'sort', 'hide', 'status'], 'integer'],
             [['title'], 'string', 'max' => 50],
             [['url'], 'string', 'max' => 255]
@@ -56,13 +55,14 @@ class Menu extends \app\models\table\Menu
         if (!empty(self::$menuList)) {
             //非超级管理员权限过滤处理
             if ($groupName != Admin::SYSTEM_GROUP_NAME) {
-                foreach (self::$menuList as $key=>&$item) {
+                foreach (self::$menuList as $key => &$item) {
                     $temp = explode(',', $item['group_id']);
                     if ($item['group_id'] == 0 || in_array($groupId, $temp)) {
                         $item['url'] = self::dealUrl($item['url'], $item['tree_code']);
                         if (in_array($item['id'], $treeCode)) {
                             $item['class'] = self::MENU_ACTIVE;
-                            $current = $item['pid'] == 0 ? $item : [];
+                            if ($item['pid'] == 0)
+                                $current = $item;
                         }
                         if ($item['pid'] == 0) {
                             $data['main'][] = $item;
@@ -75,35 +75,38 @@ class Menu extends \app\models\table\Menu
                     $item['url'] = self::dealUrl($item['url'], $item['tree_code']);
                     if (in_array($item['id'], $treeCode)) {
                         $item['class'] = self::MENU_ACTIVE;
-                        $current = $item['pid'] == 0 ? $item : [];
+                        if ($item['pid'] == 0)
+                            $current = $item;
                     }
                     if ($item['pid'] == 0) {
                         $data['main'][] = $item;
                         unset(self::$menuList[$key]);
                     }
-
-                    $codes=explode(self::TREE_CODE_SEPARATOR,$item['tree_code']);
-                    $temp=array_intersect($codes,$treeCode);
-                    if(empty($temp))
+                    $codes = explode(self::TREE_CODE_SEPARATOR, $item['tree_code']);
+                    $temp = array_intersect($codes, $treeCode);
+                    if (empty($temp))
                         unset(self::$menuList[$key]);
                 }
             }
 
-            if(isset($current['id']))
-                $data['_child']=self::menuTree($current['id']);
+            if (isset($current['id'])){
+                $data['_child'] = self::menuTree($current['id']);
+            }else{
+                return Util::noAuth();
+            }
         }
         return $data;
     }
 
 
-    protected static function menuTree($pid=0)
+    protected static function menuTree($pid = 0)
     {
-        $result=[];
-        foreach(self::$menuList as $key=>$item){
-            if($item['pid']==$pid){
+        $result = [];
+        foreach (self::$menuList as $key => $item) {
+            if ($item['pid'] == $pid) {
                 unset(self::$menuList[$key]);
-                $item['_child']=self::menuTree($item['id']);
-                $result[]=$item;
+                $item['_child'] = self::menuTree($item['id']);
+                $result[] = $item;
             }
         }
         return $result;

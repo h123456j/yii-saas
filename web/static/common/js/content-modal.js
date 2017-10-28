@@ -54,6 +54,13 @@ var AlertMessageModal = {
         this.alertModal.modal();
     },
 
+    closeAlertMessageCallback:function(callback){
+        callback = callback || {};
+        this.alertModal.on('hidden.bs.modal',function(){
+            callback(true);
+        });
+    },
+
     afterCloseAlertMessage: function (closeParentContentModal, reload) {
         closeParentContentModal = closeParentContentModal || false;
         reload = reload || false;

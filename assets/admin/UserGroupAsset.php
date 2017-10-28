@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: huang_jiang
- * Date: 2017/10/20
- * Time: 14:53
+ * User: huang
+ * Date: 2017/10/29
+ * Time: 0:01
  */
 
 namespace backend\assets;
@@ -11,15 +11,14 @@ namespace backend\assets;
 
 use app\assets\BaseAssetBundle;
 
-class MenuAsset extends BaseAssetBundle
+class UserGroupAsset extends BaseAssetBundle
 {
-
     public $css=[
-        '/static/common/css/menu.css'
+
     ];
 
     public $js=[
-        '/static/common/js/menu.js'
+
     ];
 
     public $depends=[

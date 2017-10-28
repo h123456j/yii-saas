@@ -1,3 +1,20 @@
 
-
-<h1>这是一个空白页面</h1>
+<?php
+\backend\assets\AppAsset::register($this);
+?>
+<div id="form-body" class="col-md-12">
+<?php
+$form=\yii\bootstrap\ActiveForm::begin([
+    'options'=>[
+        'role' => 'form',
+        'class' => 'form-horizontal ajax-form close-content-modal',
+        'enctype' => 'multipart/form-data'
+    ]
+]);
+echo $form->field($data,'title')->input('text')->label('用户组标签');
+echo $form->field($data,'name')->input('text')->label('用户组名称【勿使用中文】');
+echo $form->field($data,'status')->dropDownList(\backend\models\UserGroup::$statusDesc)->label('是否启用');
+echo \common\widgets\common\FormFooterWidget::widget([]);
+$form->end();
+?>
+</div>

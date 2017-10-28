@@ -22,9 +22,10 @@ class Util
 
     /**
      * 获取客户端ip
-     * @return string
+     * @param bool|false $toLong
+     * @return mixed
      */
-    public static function getIp()
+    public static function getIp($toLong = false)
     {
         if (getenv("HTTP_CLIENT_IP")) {
             $ip = getenv("HTTP_CLIENT_IP");
@@ -35,7 +36,7 @@ class Util
         } else {
             $ip = "unknown";
         }
-        return $ip;
+        return $toLong ? ip2long($ip) : $ip;
     }
 
     /**
@@ -60,11 +61,27 @@ class Util
 
     public static function getUrl($uri, $params = [])
     {
+        if (empty($uri))
+            return null;
         if (!empty($params))
             $uri = strpos($uri, '?') === false ? $uri . '?' . http_build_query($params) : $uri . '&' . http_build_query($params);
         if (strpos($uri, 'http') !== false)
             return $uri;
         return \yii\helpers\Url::toRoute($uri);
+    }
+
+    public static function trim(&$data)
+    {
+        if (!is_array($data))
+            return null;
+        foreach ($data as &$item) {
+            trim($item);
+        }
+    }
+    public static function noAuth()
+    {
+        $url=self::getUrl('public/no-auth');
+        \Yii::$app->response->redirect($url);
     }
 
 }

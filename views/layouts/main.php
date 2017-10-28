@@ -6,10 +6,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use backend\assets\AppAsset;
 use backend\models\Menu;
-
-AppAsset::register($this);
 $menuTree = Menu::getMenus(); // 获取后台栏目
 $this->beginPage();
 ?>
@@ -122,7 +119,8 @@ $this->beginPage();
             <i class="icon-arrow-up"></i>
         </div>
     </div>
-    <?php \backend\assets\LayoutAsset::register($this); ?>
+    <?php
+    \backend\assets\LayoutAsset::register($this); ?>
     <?php $this->endBody() ?>
     </body>
     </html>

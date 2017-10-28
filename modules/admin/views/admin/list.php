@@ -1,6 +1,10 @@
 
 
 <div>
+    <div class="form-inline">
+        <button class="btn btn-primary content-modal" data-title="新增管理员"
+                data-url="<?php echo \app\component\helpers\Util::getUrl('admin/update');?>">添加管理员</button>
+    </div>
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -24,7 +28,10 @@
             <td><?php echo $item->email;?></td>
             <td><?php echo  $item->groupName;?></td>
             <td><?php echo  $item->update_time;?></td>
-            <td></td>
+            <td>
+                <span data-title="编辑用户信息" data-url="<?php echo \app\component\helpers\Util::getUrl('admin/update',['id'=>$item['uid']]);?>" style="color: #1465AC;padding: 0 5px;" class="content-modal glyphicon glyphicon-pencil"></span>
+                |<span data-url="<?php echo \app\component\helpers\Util::getUrl('admin/del')?>" data-params='{"uid":"<?php echo $item->uid;?>"}' style="color: #FF0000;padding: 0 5px;" class="ajax-del glyphicon glyphicon-trash"></span>
+            </td>
         </tr>
         <?php }}?>
         </tbody>

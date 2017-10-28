@@ -27,9 +27,26 @@ class Admin extends \app\models\table\Admin implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 1;
-    const SYSTEM_GROUP_NAME='system';
+    const SYSTEM_GROUP_NAME = 'system';
+    const SCENARIO_FOR_ADD='add';
+    const SCENARIO_FOR_EDIT='edit';
 
     public $groupName;
+    public $tempPassword;
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+//            [['username','email'], 'required', 'message' => '该字段不能为空','on'=>self::SCENARIO_FOR_ADD],
+//            [['password'],'required','message'=>'该字段不能为空','on'=>self::SCENARIO_FOR_ADD],
+//            [['username'], 'string', 'max' => 16, 'message' => '长度超过限制'],
+//            [['email'], 'string', 'max' => 32, 'message' => '长度超过限制'],
+//            [['mobile'], 'string', 'max' => 11, 'message' => '长度超过限制'],
+//            [['username'], 'unique', 'message' => '用户名已存在'],
+        ];
+    }
 
     /**
      * 根据UID获取账号信息
@@ -75,11 +92,11 @@ class Admin extends \app\models\table\Admin implements IdentityInterface
      */
     public static function getUserList($pager)
     {
-        $query=static::find()
+        $query = static::find()
             ->select('au.*,ag.name groupName')
             ->from('yii_admin_user au')
             ->leftJoin('yii_admin_user_group ag', 'au.group_id=ag.group_id')
-            ->where([ 'au.status' => self::STATUS_ACTIVE, 'ag.status' => self::STATUS_ACTIVE])
+            ->where(['au.status' => self::STATUS_ACTIVE, 'ag.status' => self::STATUS_ACTIVE])
             ->offset($pager->getOffset())
             ->limit($pager->getLimit());
         $pager->setCount($query->count());

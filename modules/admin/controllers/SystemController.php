@@ -8,9 +8,10 @@
 
 namespace backend\controllers;
 
+use app\component\helpers\Util;
 use app\component\model\Page;
-use app\services\admin\MenuService;
 use app\services\admin\UserService;
+use backend\models\UserGroup;
 use yii\data\Pagination;
 use yii\helpers\VarDumper;
 
@@ -43,28 +44,26 @@ class SystemController extends BaseController
         $pager = new Page($page, $pageSize);
         $data = UserService::instance()->getUserGroupList($pager);
         $pagination = new Pagination(['totalCount' => $pager->getCount(), 'pageSize' => $pageSize]);
-        return $this->render('group_list',['data'=>$data,'pages'=>$pagination]);
+        return $this->render('group_list', ['data' => $data, 'pages' => $pagination]);
     }
 
-    public function actionGroupUpdate($id=null)
+    public function actionGroupUpdate($id = null)
     {
-        $this->layout='/admin/simple';
-        return $this->render('group-update');
-    }
-
-    /**
-     * 管理员列表
-     * @param int $page
-     * @param int $pageSize
-     * @return string
-     */
-    public function actionUserList($page = self::DEFAULT_PAGE, $pageSize = self::DEFAULT_PAGE_SIZE)
-    {
-        $this->setPageTitle('管理员列表');
-        $pager = new Page($page, $pageSize);
-        $data = UserService::instance()->getUserList($pager);
-        $pagination = new Pagination(['totalCount' => $pager->getCount(), 'pageSize' => $pageSize]);
-        return $this->render('user_list', ['data' => $data, 'pages' => $pagination]);
+        $this->layout = '/admin/simple';
+        $groupInfo = new UserGroup();
+        $userService = UserService::instance();
+        if (!is_null($id))
+            $groupInfo = $userService->getGroupInfoById($id);
+        if (\Yii::$app->request->getIsPost()) {
+            $data = \Yii::$app->request->post('UserGroup');
+            Util::trim($data);
+            $groupInfo->setAttributes($data, false);
+            $result = $userService->groupUpdate($groupInfo);
+            if (is_null($result))
+                return self::error();
+            return self::success();
+        }
+        return $this->render('group-update', ['data' => $groupInfo]);
     }
 
 

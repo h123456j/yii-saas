@@ -1,6 +1,4 @@
 
-
-<?php $this->beginBody() ?>
 <div class="logo"></div>
 <div id="form-body" class="content">
     <?php

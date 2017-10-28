@@ -14,6 +14,7 @@ use app\services\base\BaseService;
 use backend\models\Menu;
 use common\error\Error;
 use yii\base\Exception;
+use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
 
 class MenuService extends BaseService
@@ -36,15 +37,26 @@ class MenuService extends BaseService
         $menu->update_time = date('Y-m-d H:i:s');
         $transaction = $menu::getDb()->beginTransaction();
         try {
+            if ($menu->pid > 0 && empty($menu->group_id)) {
+                $temp = Menu::findOne(['id' => $menu->pid]);
+                if (empty($temp))
+                    throw new Exception('数据库错误', Error::COMMON_DB);
+                $menu->group_id = $temp->group_id;
+                $menu->tree_code = $temp->tree_code;
+            }
+
             if ($menu->save()) {
                 if (empty($menu->pid)) {
-                    $menu->tree_code = $menu->id;
+                    $treeCode = $menu->id;
+                } elseif (empty($menu->tree_code)) {
+                    $treeCode = $menu->pid . $menu::TREE_CODE_SEPARATOR . $menu->id;
                 } else {
                     $temp = explode($menu::TREE_CODE_SEPARATOR, $menu->tree_code);
                     if (!in_array($menu->id, $temp))
-                        $menu->tree_code = $menu->tree_code . $menu::TREE_CODE_SEPARATOR . $menu->id;
+                        $treeCode = $menu->tree_code . $menu::TREE_CODE_SEPARATOR . $menu->id;
                 }
-                $menu->save();
+                if (!empty($treeCode))
+                    Menu::updateAll(['tree_code' => $treeCode], ['id' => $menu->id]);
             }
             $transaction->commit();
             return true;
@@ -79,6 +91,16 @@ class MenuService extends BaseService
             }
         }
         return $result;
+    }
+
+    public function treeDel($id)
+    {
+        $menuList = Menu::find()
+            ->select('id')
+            ->where(['like', 'tree_code', $id])
+            ->all();
+        $ids = ArrayHelper::getColumn($menuList, 'id');
+        return Menu::deleteAll(['in', 'id', $ids]);
     }
 
 }

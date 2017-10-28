@@ -7,7 +7,6 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 \app\assets\common\IeAsset::register($this);
-\backend\assets\AppAsset::register($this);
 
 $this->beginPage();
 ?>
@@ -27,6 +26,9 @@ $this->beginPage();
     </head>
     <?php
     $this->beginBody();
+    ?>
+    <div class="div-load"></div>
+    <?php
     echo \common\widgets\modal\AlertMessageWidget::widget([]);
     echo $content;
     $this->endBody();

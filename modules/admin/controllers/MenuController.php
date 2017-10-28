@@ -76,5 +76,14 @@ class MenuController extends BaseController
         return $this->render('update', ['menu' => $menuInfo, 'groupList' => $groupList]);
     }
 
+    public function actionDel()
+    {
+        $id=\Yii::$app->request->post('id');
+        $result=MenuService::instance()->treeDel($id);
+        if(is_null($result))
+            return self::error();
+        return self::success('删除成功');
+    }
+
 
 }

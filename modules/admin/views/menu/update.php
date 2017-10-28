@@ -1,7 +1,7 @@
 <?php
 \backend\assets\MenuAsset::register($this);
 ?>
-<div class="div-load"></div>
+
 <div id="form-body" class="col-md-12">
     <?php $form = \yii\bootstrap\ActiveForm::begin([
         'options' => [
@@ -17,14 +17,7 @@
     echo $form->field($menu, 'hide')->dropDownList(['显示', '隐藏'])->label('显示状态');
     echo $form->field($menu,'sort')->input('text')->label('排序参数【数值越大，排序越后】');
     echo $form->field($menu, 'groupList')->input('text',['id'=>'input-group-list'])->label('所属用户组【选填，默认属于所有用户组】');
-    ?>
-
-    <div class="form-inline" style="text-align: center;">
-        <button class="btn btn-danger" type="button" onclick="parent.ContentModal.closeContentModal()">关&nbsp;闭</button>
-        <button class="btn btn-primary" style="margin-left: 30px;" type="submit">提&nbsp;交</button>
-    </div>
-
-    <?php
+    echo \common\widgets\common\FormFooterWidget::widget([]);
     echo $form->field($menu,'id')->input('hidden')->label('');
     echo $form->field($menu,'pid')->input('hidden')->label('');
     echo $form->field($menu, 'group_id')->input('hidden',['id'=>'input-group-id'])->label('');

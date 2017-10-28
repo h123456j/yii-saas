@@ -33,23 +33,6 @@ class Admin extends \common\core\BaseActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
-        return [
-            [['username', 'password', 'salt', 'email'], 'required'],
-            [['reg_time', 'reg_ip', 'last_login_time', 'last_login_ip', 'update_time', 'status'], 'integer'],
-            [['username'], 'string', 'max' => 16],
-            [['password'], 'string', 'max' => 60],
-            [['salt', 'email'], 'string', 'max' => 32],
-            [['mobile'], 'string', 'max' => 15],
-            [['username'], 'unique'],
-            [['email'], 'unique']
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels()
     {
         return [
