@@ -67,5 +67,10 @@ class UserService extends BaseService
         return $groupInfo->save();
     }
 
+    public function groupDel($id)
+    {
+        return UserGroup::deleteAll(['group_id'=>$id]);
+    }
+
 
 }

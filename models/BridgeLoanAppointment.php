@@ -18,6 +18,8 @@ class BridgeLoanAppointment extends \app\models\table\BridgeLoanAppointment
     public static $statusDesc = [1 => '未审核', 2 => '已审核'];
     public static $propertyDesc = ['非合同期内', '合同期内'];
 
+    public $nickname;
+
     public function scenarioFields()
     {
         return [
@@ -77,6 +79,20 @@ class BridgeLoanAppointment extends \app\models\table\BridgeLoanAppointment
             $item->setScenario($scenario);
         }
         return $data;
+    }
+
+    public static function getList(Page $pager, $condition = [])
+    {
+        $query = self::find()
+            ->select('bl.*,ui.nickname')
+            ->from(self::tableName() . ' bl')
+            ->leftJoin(self::getFullName('user_info ui'),'bl.uid=ui.uid')
+            ->where(['bl.is_deleted' => 0])
+            ->orderBy(['create_time' => SORT_DESC, 'update_time' => SORT_DESC]);
+        $pager->setCount($query->count());
+        $query->offset($pager->getOffset())
+            ->limit($pager->getLimit());
+        return $query->all();
     }
 
 }

@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huang
- * Date: 2017/10/28
- * Time: 18:30
- */
+\backend\assets\AppAsset::register($this);
 ?>
 
 <div id="form-body" class="col-md-12">

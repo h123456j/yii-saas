@@ -66,5 +66,14 @@ class SystemController extends BaseController
         return $this->render('group-update', ['data' => $groupInfo]);
     }
 
+    public function actionGroupDel()
+    {
+        $id=\Yii::$app->request->post('id');
+        $result=UserService::instance()->groupDel($id);
+        if(is_null($result))
+            return self::error();
+        return self::success('删除成功');
+    }
+
 
 }

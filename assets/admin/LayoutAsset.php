@@ -34,4 +34,8 @@ class LayoutAsset extends BaseAssetBundle
 //        'static/other/js/common.js'
     ];
 
+    public $depends=[
+        'backend\assets\AppAsset',
+    ];
+
 }

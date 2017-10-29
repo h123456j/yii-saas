@@ -56,6 +56,7 @@ $(document).ready(function () {
             params=JSON.parse(params);
         }catch (e){
             AlertMessageModal.showAlertMessage('参数异常');
+            return false;
         }
         ajaxDel(this,url,params,true);
     });

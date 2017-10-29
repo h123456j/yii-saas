@@ -16,6 +16,20 @@ class AppointmentSchedule extends \app\models\table\AppointmentSchedule
 {
 
     const DEFAULT_MONEY = 1000;
+    const SCENARIO_FOR_UPDATE='update';
+    const SCENARIO_FOR_CREATE='create';
+
+    public $startDate;
+    public $endDate;
+
+    public function rules()
+    {
+        return [
+            [['startDate'],'required','message'=>'开始时间必填','on'=>[self::SCENARIO_FOR_CREATE]],
+            [['total_money'],'required','message'=>'该字段不能为空'],
+            [['total_money'],'number','message'=>'金额不合法']
+        ];
+    }
 
     public function scenarioFields()
     {
@@ -61,7 +75,24 @@ class AppointmentSchedule extends \app\models\table\AppointmentSchedule
     public static function batchInsert($fields, $values)
     {
         return self::getDb()->createCommand()
-            ->batchInsert(self::getFullName('bridge_loan_month_table'), $fields, $values)->execute();
+            ->batchInsert(self::tableName(), $fields, $values)->execute();
+    }
+
+    public static function getList(Page $pager, $condition = [])
+    {
+        $query = self::find()
+            ->select('*')
+            ->where(['status' => 1]);
+        if (isset($condition['orderBy'])) {
+            $query->orderBy($condition['orderBy']);
+        } else {
+            $query->orderBy(['date' => SORT_DESC]);
+        }
+        $pager->setCount($query->count());
+
+        return $query->offset($pager->getOffset())
+            ->limit($pager->getLimit())
+            ->all();
     }
 
 }

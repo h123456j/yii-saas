@@ -30,7 +30,7 @@ class HomePageService extends BaseService
     const APPOINTMENT_TYPE_FOR_ESTATE = 3;//物业预约
     const APPOINTMENT_TYPE_FOR_OTHER = 4;//其他预约
 
-    private static $fields = ['date', 'total_money', 'usable_money', 'update_time'];
+    private static $fields = ['date', 'total_money', 'usable_money', 'update_time','update_people'];
 
     /**
      * 过桥月排表
@@ -67,23 +67,59 @@ class HomePageService extends BaseService
         return $data;
     }
 
-    protected static function getDateList($date, $size = 30)
+    public function addSchedule($data)
     {
-        $date = strtotime($date);
+        $username=\Yii::$app->user->identity->username;
+        if (empty($data['endDate'])) {
+            $val= self::createValues(date('Y-m-d', strtotime($data['startDate'])),$data['total_money']);
+            $val['update_people']=$username;
+            $values[] =$val;
+        } else {
+            if($data['endDate']<$data['startDate'])
+                throw new \yii\base\Exception('开始日期不能大于结束日期',Error::COMMON_PARAM_INVALID);
+            $dateList = self::getDateList($data['startDate'], 0, $data['endDate']);
+            foreach ($dateList as $date) {
+                $val = self::createValues($date,$data['total_money']);
+                $val['update_people']=$username;
+                $values[]=$val;
+            }
+        }
+
+        try{
+           return AppointmentSchedule::batchInsert(self::$fields,$values);
+        }catch (\yii\base\Exception $e){
+            \Yii::error('排期表录入失败:'.json_encode($values));
+            throw new \yii\base\Exception('所选日期中有已存在的日期，请重新选择',Error::COMMON_DB);
+        }
+    }
+
+    protected static function getDateList($startDate, $size = 30, $endDate = null)
+    {
+        $startDate = strtotime($startDate);
         $dateList = [];
-        for ($i = 0; $i < $size; $i++) {
-            $dateList[] = date('Y-m-d', strtotime('+' . $i . 'days', $date));
+        if (is_null($endDate)) {
+            for ($i = 0; $i < $size; $i++) {
+                $dateList[] = date('Y-m-d', strtotime('+' . $i . 'days', $startDate));
+            }
+        } else {
+            $i = 0;
+            do {
+                $temp = date('Y-m-d', strtotime('+' . $i . 'days', $startDate));
+                $dateList[] = $temp;
+                $i++;
+            } while ($temp < $endDate);
         }
         return $dateList;
     }
 
-    private static function createValues($date)
+    private static function createValues($date, $money = null)
     {
         return [
             'date' => $date,
-            'total_money' => AppointmentSchedule::DEFAULT_MONEY,
-            'usable_money' => AppointmentSchedule::DEFAULT_MONEY,
-            'update_time' => date('Y-m-d H:i:s')
+            'total_money' => is_null($money) ? AppointmentSchedule::DEFAULT_MONEY : $money,
+            'usable_money' => is_null($money) ? AppointmentSchedule::DEFAULT_MONEY : $money,
+            'update_time' => date('Y-m-d H:i:s'),
+            'update_people'=>'系统'
         ];
     }
 

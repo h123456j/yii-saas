@@ -9,6 +9,7 @@
 namespace app\services;
 
 
+use app\models\AppointmentSchedule;
 use app\models\BridgeLoanAppointment;
 use app\models\EstateAppointment;
 use app\models\OtherAppointment;
@@ -46,6 +47,44 @@ class AppointmentService extends BaseService
             throw  new Exception('记录查询失败', Error::COMMON_DB);
         $info->setScenario($scenario);
         return $info;
+    }
+
+
+    public function getList($pager,$type=HomePageService::APPOINTMENT_TYPE_FOR_BRIDGE_LOAN)
+    {
+        switch($type){
+            case HomePageService::APPOINTMENT_TYPE_FOR_BRIDGE_LOAN:
+               return BridgeLoanAppointment::getList($pager);
+                break;
+            case HomePageService::APPOINTMENT_TYPE_FOR_ESTATE:
+                break;
+            case HomePageService::APPOINTMENT_TYPE_FOR_REDEEM_BUILDING:
+                break;
+            case HomePageService::APPOINTMENT_TYPE_FOR_OTHER:
+                break;
+            default:
+                return [];
+                break;
+        }
+    }
+
+    public function getScheduleList($pager)
+    {
+        return AppointmentSchedule::getList($pager);
+    }
+
+    public function getScheduleInfoByDate($date)
+    {
+        return AppointmentSchedule::findOne(['date'=>$date]);
+    }
+
+    public function scheduleUpdate(AppointmentSchedule $schedule)
+    {
+        $money=$schedule->freeze_money+$schedule->use_money;
+        $schedule->usable_money=$schedule->total_money-$money;
+        if($schedule->usable_money<0)
+            throw new Exception('填写的总金额数不能小于'.$money.'万',Error::COMMON_PARAM_INVALID);
+        return $schedule->save();
     }
 
 }

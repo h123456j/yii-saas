@@ -23,7 +23,7 @@ class BaseController extends Controller
 {
 
     const DEFAULT_PAGE = 1;//默认页码
-    const DEFAULT_PAGE_SIZE = 15;//默认每页数量
+    const DEFAULT_PAGE_SIZE = 10;//默认每页数量
 
     public $enableCsrfValidation = false;
 
