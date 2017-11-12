@@ -21,25 +21,28 @@ use \app\component\helpers\Util;
             </thead>
             <tbody>
             <tr>
-                <td>业主：<span><?php echo $data->owner; ?></span></td>
-            </tr>
-            <tr>
                 <td>联系人：<span><?php echo $data->contacts; ?></span></td>
             </tr>
             <tr>
                 <td>联系电话：<span><?php echo $data->contacts_tel; ?></span></td>
             </tr>
             <tr>
-                <td>建筑类别：<span><?php echo EstateAppointment::$cateDesc[$data->cate]; ?></span></td>
+                <td>职业：<span><?php echo  $data->profession;?></span></td>
             </tr>
             <tr>
-                <td>占地面积：<span><?php echo $data->land_area; ?>&nbsp;平米</span></td>
+                <td>建筑名称：<span><?php echo $data->building_name;?></span></td>
             </tr>
             <tr>
-                <td>建筑面积：<span><?php echo $data->building_area; ?>&nbsp;平米</span></td>
+                <td>详细地址：<span><?php echo $data->address;?></span></td>
             </tr>
             <tr>
-                <td>建筑属性：<span><?php echo EstateAppointment::$propertyDesc[$data->property]; ?></span></td>
+                <td>贷款银行：<span><?php echo $data->bank;?></span></td>
+            </tr>
+            <tr>
+                <td>资金缺口：<span><?php echo $data->money;?>&nbsp;万元</span></td>
+            </tr>
+            <tr>
+                <td>使用天数：<span><?php echo $data->usage_days;?>&nbsp;天</span></td>
             </tr>
             <tr>
                 <td>备注：<span><?php echo $data->remark; ?></span></td>
@@ -73,14 +76,12 @@ use \app\component\helpers\Util;
                 'enctype' => 'multipart/form-data'
             ]
         ]);
-        echo $form->field($data, 'owner')->input('text')->label('业主');
         echo $form->field($data, 'contacts')->input('text')->label('借款联系人');
         echo $form->field($data, 'contacts_tel')->input('text')->label('联系人电话');
-        echo $form->field($data, 'cate')->dropDownList(EstateAppointment::$cateDesc)->label('建筑类别');
-        echo $form->field($data, 'cate_property')->dropDownList(EstateAppointment::$catePropertyDesc)->label('类别属性');
-        echo $form->field($data, 'property')->dropDownList(EstateAppointment::$propertyDesc)->label('建筑属性');
-        echo $form->field($data, 'land_area')->input('text')->label('占地面积(平米)');
-        echo $form->field($data, 'building_area')->input('text')->label('建筑面积(平米)');
+        echo $form->field($data,'profession')->input('text')->label('职业');
+        echo $form->field($data,'building_name')->input('text')->label('楼盘名称');
+        echo $form->field($data,'address')->textarea(['style'=>'height:100px;'])->label('地址');
+        echo $form->field($data,'bank')->input('text')->label('贷款银行');
         echo $form->field($data, 'status')->dropDownList(\app\services\AppointmentService::$statusDesc)->label("审核状态");
         echo $form->field($data, 'remark')->textarea(['style' => 'height:100px;'])->label('备注');
         echo \common\widgets\common\FormFooterWidget::widget([]);

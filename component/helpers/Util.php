@@ -70,6 +70,25 @@ class Util
         return \yii\helpers\Url::toRoute($uri);
     }
 
+    public static function getFileUrl($path)
+    {
+        if (strpos($path, 'http') !== false)
+            return $path;
+        return \Yii::$app->request->getHostInfo().'/'.$path;
+    }
+
+    public static function downloadFile($path)
+    {
+        $filePath=self::getFileUrl($path);
+        $fileInfo = pathinfo($filePath);
+        header('Content-type: application/x-'.$fileInfo['extension']);
+        header('Content-Disposition: attachment; filename='.$fileInfo['basename']);
+        header('Content-Length: '.filesize($filePath));
+        readfile($filePath);
+        exit();
+
+    }
+
     public static function trim(&$data)
     {
         if (!is_array($data))

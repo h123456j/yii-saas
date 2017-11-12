@@ -15,7 +15,7 @@ class OtherAppointment extends \app\models\table\OtherAppointment
 {
 
     const STATUS_FOR_NOT_AUDIT = 1;//审核未通过
-    public static $statusDesc = [1 => '未审核', 2 => '已审核'];
+    public static $statusDesc = [1 => '未审核', 2 => '通过',3=>'不通过'];
     public static $cateDesc = [
         0 => '未知',
         1 => '国土抵押加急',
@@ -28,6 +28,9 @@ class OtherAppointment extends \app\models\table\OtherAppointment
         8 => '抵押',
         9 => '淘宝拍卖'
     ];
+
+    //附加字段
+    public $nickname;
 
     public function scenarioFields()
     {
@@ -84,6 +87,20 @@ class OtherAppointment extends \app\models\table\OtherAppointment
             $item->setScenario($scenario);
         }
         return $data;
+    }
+
+    public static function getList(Page $pager, $condition = [])
+    {
+        $query = self::find()
+            ->select('oa.*,ui.nickname')
+            ->from(self::tableName() . ' oa')
+            ->leftJoin(self::getFullName('user_info ui'), 'oa.uid=ui.uid')
+            ->where(['oa.is_deleted' => 0])
+            ->orderBy(['oa.create_time' => SORT_DESC, 'oa.update_time' => SORT_DESC]);
+        $pager->setCount($query->count());
+        $query->offset($pager->getOffset())
+            ->limit($pager->getLimit());
+        return $query->all();
     }
 
 }

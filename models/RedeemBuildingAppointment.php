@@ -15,7 +15,10 @@ class RedeemBuildingAppointment extends \app\models\table\RedeemBuildingAppointm
 {
 
     const STATUS_FOR_NOT_AUDIT = 1;//审核未通过
-    public static $statusDesc = [1 => '未审核', 2 => '已审核'];
+    public static $statusDesc = [1 => '未审核', 2 => '通过','3'=>'不通过'];
+
+    //附加字段
+    public $nickname;
 
     public function scenarioFields()
     {
@@ -74,6 +77,20 @@ class RedeemBuildingAppointment extends \app\models\table\RedeemBuildingAppointm
             $item->setScenario($scenario);
         }
         return $data;
+    }
+
+    public static function getList(Page $pager, $condition = [])
+    {
+        $query = self::find()
+            ->select('ra.*,ui.nickname')
+            ->from(self::tableName() . ' ra')
+            ->leftJoin(self::getFullName('user_info ui'), 'ra.uid=ui.uid')
+            ->where(['ra.is_deleted' => 0])
+            ->orderBy(['ra.create_time' => SORT_DESC, 'ra.update_time' => SORT_DESC]);
+        $pager->setCount($query->count());
+        $query->offset($pager->getOffset())
+            ->limit($pager->getLimit());
+        return $query->all();
     }
 
 }

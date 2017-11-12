@@ -15,7 +15,7 @@ use \app\models\EstateAppointment;
             <th>建筑面积(平米)</th>
             <th>属性</th>
             <th>创建时间</th>
-            <th>状态</th>
+            <th>审核状态</th>
             <th>操作</th>
         </tr>
         </thead>

@@ -116,10 +116,10 @@ function menuHtml(data, level) {
     $.each(data, function (key, item) {
         if (item['pid'] == 0) {
             level = 0;
-            html += '<tr class="tr_' + item['pid'] + '" data-level="' + level + '"><td class="td_nav td_' + item['pid'] + '" data-id="' + item['id'] + '" data-hide="1">';
+            html += '<tr class="tr_hover tr_' + item['pid'] + '" data-level="' + level + '"><td class="td_nav td_' + item['pid'] + '" data-id="' + item['id'] + '" data-hide="1">';
             html += '<span style="padding-right: 10px;" class="glyphicon glyphicon-folder-open"></span>' + item['title'] + '</td>';
         } else {
-            html += '<tr class="tr_' + item['pid'] + '" data-level="' + level + '"><td class="td_nav td_' + item['pid'] + '" data-id="' + item['id'] + '" data-hide="1" style="padding-left: ' + padding + 'px;">';
+            html += '<tr class="tr_hover tr_' + item['pid'] + '" data-level="' + level + '"><td class="td_nav td_' + item['pid'] + '" data-id="' + item['id'] + '" data-hide="1" style="padding-left: ' + padding + 'px;">';
             html += '|--<span style="padding: 0 5px;" class="glyphicon glyphicon-file"></span>' + item['title'] + '</td>';
         }
         html += '<td data-id="' + item['id'] + '" data-tree-code="' + item['tree_code'] + '">';

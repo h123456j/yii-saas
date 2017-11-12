@@ -14,6 +14,8 @@ use app\component\model\Page;
 use app\models\AppointmentSchedule;
 use app\models\BridgeLoanAppointment;
 use app\models\EstateAppointment;
+use app\models\OtherAppointment;
+use app\models\RedeemBuildingAppointment;
 use app\services\AppointmentService;
 use app\services\HomePageService;
 use common\error\Error;
@@ -76,7 +78,7 @@ class AppointmentController extends BaseController
         return $this->render('bridge-list', ['data' => $data, 'pages' => $pages]);
     }
 
-    public function actionBridgeLoadUpdate($id = null)
+    public function actionBridgeLoadUpdate($id = null,$look=false)
     {
         $this->layout = '/admin/simple';
         if (is_null($id)) {
@@ -98,7 +100,7 @@ class AppointmentController extends BaseController
         if (is_null($bridgeLoanInfo))
             return Util::systemError();
 
-        return $this->render('bridge-loan-update', ['bridgeLoan' => $bridgeLoanInfo]);
+        return $this->render('bridge-loan-update', ['data' => $bridgeLoanInfo,'look'=>$look]);
 
     }
 
@@ -112,7 +114,7 @@ class AppointmentController extends BaseController
     }
 
 
-    public function actionEstateUpdate($id = null,$look=false)
+    public function actionEstateUpdate($id = null, $look = false)
     {
         $this->layout = '/admin/simple';
         if (is_null($id)) {
@@ -132,17 +134,71 @@ class AppointmentController extends BaseController
         if (is_null($estate))
             return Util::systemError();
 
-        return $this->render('estate-update', ['data' => $estate,'look'=>$look]);
+        return $this->render('estate-update', ['data' => $estate, 'look' => $look]);
     }
 
-    public function actionRedeemBuildingList()
+    public function actionRedeemBuildingList($page = self::DEFAULT_PAGE, $pageSize = self::DEFAULT_PAGE_SIZE)
     {
         $this->setPageTitle('赎楼预约列表');
+        $pager = new Page($page, $pageSize);
+        $data = AppointmentService::instance()->getList($pager, HomePageService::APPOINTMENT_TYPE_FOR_REDEEM_BUILDING);
+        $pages = new Pagination(['totalCount' => $pager->getCount(), 'pageSize' => $pageSize]);
+        return $this->render('redeem-building-list', ['data' => $data, 'pages' => $pages]);
     }
 
-    public function actionOtherList()
+    public function actionRedeemBuildingUpdate($id = null, $look = false)
+    {
+        $this->layout = '/admin/simple';
+        if (is_null($id)) {
+            $redeemBuilding = new RedeemBuildingAppointment();
+        } else {
+            $redeemBuilding = AppointmentService::instance()->getInfo($id, HomePageService::APPOINTMENT_TYPE_FOR_REDEEM_BUILDING);
+        }
+        if (\Yii::$app->request->getIsPost()) {
+            $data = \Yii::$app->request->post('RedeemBuildingAppointment');
+            $redeemBuilding->setAttributes($data, false);
+            $redeemBuilding->setScenario('default');
+            $result = AppointmentService::instance()->update($redeemBuilding, HomePageService::APPOINTMENT_TYPE_FOR_REDEEM_BUILDING);
+            if (is_null($result))
+                return self::error();
+            return self::success();
+        }
+        if (is_null($redeemBuilding))
+            return Util::systemError();
+        return $this->render('redeem-building-update', ['data' => $redeemBuilding, 'look' => $look]);
+    }
+
+    public function actionOtherList($page = self::DEFAULT_PAGE, $pageSize = self::DEFAULT_PAGE_SIZE)
     {
         $this->setPageTitle('其他预约列表');
+        $pager = new Page($page, $pageSize);
+        $data = AppointmentService::instance()->getList($pager, HomePageService::APPOINTMENT_TYPE_FOR_OTHER);
+        $pages = new Pagination(['totalCount' => $pager->getCount(), 'pageSize' => $pageSize]);
+        return $this->render('other-list', ['data' => $data, 'pages' => $pages]);
+    }
+
+    public function actionOtherUpdate($id = null, $look = false)
+    {
+        $this->layout = '/admin/simple';
+        if (is_null($id)) {
+            $other = new OtherAppointment();
+        } else {
+            $other = AppointmentService::instance()->getInfo($id, HomePageService::APPOINTMENT_TYPE_FOR_OTHER);
+        }
+        if (\Yii::$app->request->getIsPost()) {
+            $data = \Yii::$app->request->post('OtherAppointment');
+            Util::trim($data);
+            $other->setAttributes($data, false);
+            $other->setScenario('default');
+            $result = AppointmentService::instance()->update($other, HomePageService::APPOINTMENT_TYPE_FOR_OTHER);
+            if (is_null($result))
+                return self::error();
+            return self::success();
+        }
+        if (is_null($other))
+            return Util::systemError();
+
+        return $this->render('other-update', ['data' => $other, 'look' => $look]);
     }
 
     public function actionDel()

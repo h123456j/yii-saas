@@ -14,8 +14,11 @@ use app\component\model\Page;
 class BridgeLoanAppointment extends \app\models\table\BridgeLoanAppointment
 {
 
-    const STATUS_FOR_NOT_AUDIT = 1;//审核未通过
-    public static $statusDesc = [1 => '未审核', 2 => '已审核'];
+    const STATUS_FOR_NOT_AUDIT = 1;//未审核
+    const STATUS_FOR_AUDIT_OK=2;//审核通过
+    const STATUS_FOR_AUDIT_FAIL=3;//审核不通过
+
+    public static $statusDesc = [1 => '未审核', 2 => '通过',3=>'不通过'];
     public static $propertyDesc = ['非合同期内', '合同期内'];
 
     public $nickname;

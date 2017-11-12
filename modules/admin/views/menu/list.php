@@ -11,11 +11,15 @@
     tr, td {
         cursor: pointer;
     }
+
+    .tr_hover:hover {
+        background-color: #36C6D3 !important;
+    }
 </style>
 <div id="module-tree" class="table-responsive">
     <div class="form-inline">
         <button class="btn btn-primary content-modal" data-title="新增导航菜单"
-                data-url="<?php echo \app\component\helpers\Util::getUrl('menu/update');?>">新增一级导航
+                data-url="<?php echo \app\component\helpers\Util::getUrl('menu/update'); ?>">新增一级导航
         </button>
     </div>
     <table class="table">
@@ -30,5 +34,5 @@
 </div>
 
 <script type="text/javascript">
-    var json = '<?php echo  json_encode($data);?>';
+    var json = '<?php echo json_encode($data);?>';
 </script>

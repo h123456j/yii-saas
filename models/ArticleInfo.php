@@ -18,7 +18,17 @@ class ArticleInfo extends \app\models\table\ArticleInfo
     const TYPE_OF_NEW = 'new';//最新文章
     const TYPE_OF_HOT = 'hot';//精选文章
 
+    const STATUS_FOR_NOT_AUDIT=1;//未审核
+
+    public static $statusDesc=[
+        '1'=>'审核中',
+        '2'=>'通过',
+        '3'=>'不通过'
+    ];
+
     private $cateTitle;//类别名称
+    public $nickname;//用户昵称
+
 
     public function scenarioFields()
     {
@@ -83,6 +93,24 @@ class ArticleInfo extends \app\models\table\ArticleInfo
             $item->setScenario($scenario);
         }
         return $data;
+    }
+
+    public static function getList(Page $pager, $condition = [], $orderBy = [])
+    {
+        $query = self::find()
+            ->select('ai.*,ac.title as cateTitle,ui.nickname')
+            ->from(self::getFullName('article_info ai'))
+            ->leftJoin(self::getFullName('article_cate ac'), 'ai.cate_code=ac.cate_code')
+            ->leftJoin(self::getFullName('user_info ui'), 'ai.uid=ui.uid');
+        if (empty($orderBy)) {
+            $query->orderBy(['create_time' => SORT_DESC]);
+        } else {
+
+        }
+        $pager->setCount($query->count());
+        return $query->offset($pager->getOffset())
+            ->limit($pager->getLimit())
+            ->all();
     }
 
     /**

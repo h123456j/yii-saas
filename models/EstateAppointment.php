@@ -15,7 +15,7 @@ class EstateAppointment extends \app\models\table\EstateAppointment
 {
 
     const STATUS_FOR_NOT_AUDIT = 1;//审核未通过
-    public static $statusDesc = [1 => '未审核', 2 => '已审核'];
+    public static $statusDesc = [1 => '未审核', 2 => '通过',3=>'不通过'];
     public static $cateDesc = ['未知', '厂房', '土地', '自建房', '商品房', '商铺'];
     public static $catePropertyDesc = ['未知', '商业', '商住', '住宅', '划拨'];
     public static $propertyDesc = [0 => '未知', 1 => '一般物业【没有贷款】', 2 => '贷款物业【正常贷款】', 3 => '已逾期', 4 => '已查封', 5 => '已判决', 6 => '已在淘宝拍卖'];
