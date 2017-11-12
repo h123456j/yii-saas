@@ -18,13 +18,16 @@ class OperateWidget extends Widget
 
     public $updateParams=[];
 
+    public $lookParams=[];
+
     public $delParams=[];
 
     public function run()
     {
         return $this->render('operate',[
-            'createParams'=>$this->createParams,
+            'create'=>$this->createParams,
             'update'=>$this->updateParams,
+            'look'=>$this->lookParams,
             'del'=>$this->delParams
         ]);
     }

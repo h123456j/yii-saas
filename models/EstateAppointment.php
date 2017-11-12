@@ -20,6 +20,9 @@ class EstateAppointment extends \app\models\table\EstateAppointment
     public static $catePropertyDesc = ['未知', '商业', '商住', '住宅', '划拨'];
     public static $propertyDesc = [0 => '未知', 1 => '一般物业【没有贷款】', 2 => '贷款物业【正常贷款】', 3 => '已逾期', 4 => '已查封', 5 => '已判决', 6 => '已在淘宝拍卖'];
 
+    //附加字段
+    public $nickname;
+
     public function scenarioFields()
     {
         return [
@@ -87,6 +90,20 @@ class EstateAppointment extends \app\models\table\EstateAppointment
             $item->setScenario($scenario);
         }
         return $data;
+    }
+
+    public static function getList(Page $pager, $condition = [])
+    {
+        $query = self::find()
+            ->select('ea.*,ui.nickname')
+            ->from(self::tableName() . ' ea')
+            ->leftJoin(self::getFullName('user_info ui'), 'ea.uid=ui.uid')
+            ->where(['ea.is_deleted' => 0])
+            ->orderBy(['ea.create_time' => SORT_DESC, 'ea.update_time' => SORT_DESC]);
+        $pager->setCount($query->count());
+        $query->offset($pager->getOffset())
+            ->limit($pager->getLimit());
+        return $query->all();
     }
 
 }

@@ -1,16 +1,20 @@
+<?php
+use \app\models\EstateAppointment;
+?>
 <div class="table-responsive">
     <table class="table table-bordered margin-top-5">
         <thead>
         <tr>
             <th>预约人</th>
-            <th>借款主体</th>
+            <th>业主</th>
             <th>联系人</th>
             <th>联系电话</th>
-            <th>预约金额</th>
-            <th>预约日期</th>
-            <th>使用天数</th>
-            <th>最快用款日</th>
-            <th>最后用款日</th>
+            <th>建筑类别</th>
+            <th>类别属性</th>
+            <th>占地面积(平米)</th>
+            <th>建筑面积(平米)</th>
+            <th>属性</th>
+            <th>创建时间</th>
             <th>状态</th>
             <th>操作</th>
         </tr>
@@ -21,28 +25,34 @@
                 ?>
                 <tr>
                     <td><?php echo $item->nickname;?></td>
-                    <td><?php echo $item->borrower;?></td>
+                    <td><?php echo $item->owner;?></td>
                     <td><?php echo $item->contacts;?></td>
                     <td><?php echo $item->contacts_tel;?></td>
-                    <td><?php echo $item->money;?></td>
-                    <td><?php echo $item->appointment_date;?></td>
-                    <td><?php echo $item->usage_days;?></td>
-                    <td><?php echo $item->recently_date;?></td>
-                    <td><?php echo $item->last_date;?></td>
+                    <td><?php echo EstateAppointment::$cateDesc[$item->cate];?></td>
+                    <td><?php echo EstateAppointment::$catePropertyDesc[$item->cate_property];?></td>
+                    <td><?php echo $item->land_area;?></td>
+                    <td><?php echo $item->building_area;?></td>
+                    <td><?php echo EstateAppointment::$propertyDesc[$item->property];?></td>
+                    <td><?php echo $item->create_time;?></td>
                     <td><?php echo \app\models\BridgeLoanAppointment::$statusDesc[$item->status]?></td>
                     <td>
                         <?php
                         echo \common\widgets\common\OperateWidget::widget([
                             'updateParams'=>[
                                 'title'=>'信息更新',
-                                'url'=>'appointment/bridge-load-update',
+                                'url'=>'appointment/estate-update',
                                 'params'=>['id'=>$item['id']]
+                            ],
+                            'lookParams'=>[
+                                'title'=>'信息查看',
+                                'url'=>'appointment/estate-update',
+                                'params'=>['id'=>$item['id'],'look'=>true]
                             ],
                             'delParams'=>[
                                 'url'=>'appointment/del',
                                 'params'=>[
                                     'id'=>$item['id'],
-                                    'type'=>\app\services\HomePageService::APPOINTMENT_TYPE_FOR_BRIDGE_LOAN
+                                    'type'=>\app\services\HomePageService::APPOINTMENT_TYPE_FOR_ESTATE
                                 ]
                             ]
                         ])

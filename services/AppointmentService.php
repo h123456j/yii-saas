@@ -23,6 +23,11 @@ class AppointmentService extends BaseService
 {
 
     const IS_NOT_DELETE = 0;
+    const IS_DELETE = 1;
+    public static $statusDesc = [
+        '1' => '未审核',
+        '2' => '审核通过'
+    ];
 
     public function getInfo($id, $type, $scenario = 'info')
     {
@@ -40,7 +45,7 @@ class AppointmentService extends BaseService
                 $info = OtherAppointment::findOne(['id' => $id, 'is_deleted' => self::IS_NOT_DELETE]);
                 break;
             default:
-                $info=[];
+                $info = [];
                 break;
         }
         if (empty($info))
@@ -49,14 +54,21 @@ class AppointmentService extends BaseService
         return $info;
     }
 
-
-    public function getList($pager,$type=HomePageService::APPOINTMENT_TYPE_FOR_BRIDGE_LOAN)
+    public function update($object, $type)
     {
-        switch($type){
+        $object->audit_time = $object->update_time = date('Y-m-d H:i:s');
+        return $object->save();
+    }
+
+
+    public function getList($pager, $type = HomePageService::APPOINTMENT_TYPE_FOR_BRIDGE_LOAN)
+    {
+        switch ($type) {
             case HomePageService::APPOINTMENT_TYPE_FOR_BRIDGE_LOAN:
-               return BridgeLoanAppointment::getList($pager);
+                return BridgeLoanAppointment::getList($pager);
                 break;
             case HomePageService::APPOINTMENT_TYPE_FOR_ESTATE:
+                return EstateAppointment::getList($pager);
                 break;
             case HomePageService::APPOINTMENT_TYPE_FOR_REDEEM_BUILDING:
                 break;
@@ -68,6 +80,31 @@ class AppointmentService extends BaseService
         }
     }
 
+    public function appointmentDel($id, $type = HomePageService::APPOINTMENT_TYPE_FOR_BRIDGE_LOAN)
+    {
+        switch ($type) {
+            case HomePageService::APPOINTMENT_TYPE_FOR_BRIDGE_LOAN:
+                $data = BridgeLoanAppointment::findOne(['id' => $id, 'is_deleted' => self::IS_NOT_DELETE]);
+                break;
+            case  HomePageService::APPOINTMENT_TYPE_FOR_ESTATE:
+                $data = EstateAppointment::findOne(['id' => $id, 'is_deleted' => self::IS_NOT_DELETE]);
+                break;
+            case  HomePageService::APPOINTMENT_TYPE_FOR_REDEEM_BUILDING:
+                $data = RedeemBuildingAppointment::findOne(['id' => $id, 'is_deleted' => self::IS_NOT_DELETE]);
+                break;
+            case HomePageService::APPOINTMENT_TYPE_FOR_OTHER:
+                $data = OtherAppointment::findOne(['id' => $id, 'is_deleted' => self::IS_NOT_DELETE]);
+                break;
+            default:
+                $data = [];
+                break;
+        }
+        if (empty($data))
+            return false;
+        $data->is_deleted = self::IS_DELETE;
+        return $data->save();
+    }
+
     public function getScheduleList($pager)
     {
         return AppointmentSchedule::getList($pager);
@@ -75,15 +112,15 @@ class AppointmentService extends BaseService
 
     public function getScheduleInfoByDate($date)
     {
-        return AppointmentSchedule::findOne(['date'=>$date]);
+        return AppointmentSchedule::findOne(['date' => $date]);
     }
 
     public function scheduleUpdate(AppointmentSchedule $schedule)
     {
-        $money=$schedule->freeze_money+$schedule->use_money;
-        $schedule->usable_money=$schedule->total_money-$money;
-        if($schedule->usable_money<0)
-            throw new Exception('填写的总金额数不能小于'.$money.'万',Error::COMMON_PARAM_INVALID);
+        $money = $schedule->freeze_money + $schedule->use_money;
+        $schedule->usable_money = $schedule->total_money - $money;
+        if ($schedule->usable_money < 0)
+            throw new Exception('填写的总金额数不能小于' . $money . '万', Error::COMMON_PARAM_INVALID);
         return $schedule->save();
     }
 

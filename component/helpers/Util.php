@@ -78,9 +78,16 @@ class Util
             trim($item);
         }
     }
+
     public static function noAuth()
     {
         $url=self::getUrl('public/no-auth');
+        \Yii::$app->response->redirect($url);
+    }
+
+    public static function systemError()
+    {
+        $url=self::getUrl('public/50x');
         \Yii::$app->response->redirect($url);
     }
 
