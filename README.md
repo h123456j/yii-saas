@@ -99,3 +99,6 @@ class UserController extends BaseController
 
 #### 新增导航栏
 ![新增导航栏](https://github.com/h123456j/yii-saas/blob/master/web/static/readme/admin-3.png)
+
+
+#### 文档就饿描述到这了，欢迎指正，有疑问可以咨询qq：513553191
