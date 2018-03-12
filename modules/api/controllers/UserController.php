@@ -19,8 +19,8 @@ use yii\helpers\VarDumper;
 /**
  * Class User
  * @package api\controllers
- * @controller-name 用户模块
- * @controller-rank 20
+ * @controller-name 用户模块 --模块名称
+ * @controller-rank 20 --模块排序权重【权重越大，在接口文档页面排序越前】
  */
 class UserController extends BaseController
 {
@@ -36,11 +36,11 @@ class UserController extends BaseController
     }
 
     /**
-     * @api-name  微信授权登录
-     * @api-url user/we-chat-login
-     * @api-method POST
-     * @api-param string $code 微信授权登录code
-     * @api-response {
+     * @api-name  微信授权登录 --接口名称
+     * @api-url user/we-chat-login --接口地址
+     * @api-method POST --请求方式
+     * @api-param string $code 微信授权登录code --请求参数
+     * @api-response {  --返回数据
      *    "data":{
      *      "completeInfo": true,用户信息是否已完善(true-是 false-否)
      *      "uid": "15081455574753",用户id
