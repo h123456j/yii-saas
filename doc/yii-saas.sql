@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地数据库
-Source Server Version : 50505
-Source Host           : localhost:3306
+Source Server         : 喇叭哥服务器
+Source Server Version : 50548
+Source Host           : 120.27.93.128:3306
 Source Database       : yii-saas
 
 Target Server Type    : MYSQL
-Target Server Version : 50505
+Target Server Version : 50548
 File Encoding         : 65001
 
-Date: 2017-09-21 16:43:19
+Date: 2018-03-12 16:03:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -47,25 +47,30 @@ CREATE TABLE `yii_admin_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '记录id',
   `title` varchar(50) NOT NULL DEFAULT '' COMMENT '菜单标题',
   `pid` int(11) NOT NULL DEFAULT '0' COMMENT '父id',
+  `tree_code` varchar(255) NOT NULL,
   `sort` int(11) NOT NULL DEFAULT '0' COMMENT '排序参数',
   `url` varchar(255) NOT NULL DEFAULT '' COMMENT '链接地址',
   `hide` tinyint(2) NOT NULL DEFAULT '0' COMMENT '是否影藏(1-隐藏 0-不隐藏)',
   `group_id` varchar(100) NOT NULL DEFAULT '0' COMMENT '所属分组',
   `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '状态（1-有效 0-无效）',
   `update_time` datetime NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`id`),
+  KEY `index_common` (`pid`,`hide`,`status`)
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of yii_admin_menu
 -- ----------------------------
-INSERT INTO `yii_admin_menu` VALUES ('1', '首页', '0', '0', 'index/index', '0', '0', '1', '2017-09-16 00:55:05');
-INSERT INTO `yii_admin_menu` VALUES ('2', '系统设置', '0', '2', 'system/index', '0', '1,2', '1', '2017-09-16 00:55:57');
-INSERT INTO `yii_admin_menu` VALUES ('3', '管理员模块', '2', '0', '', '0', '1,2', '1', '2017-09-16 03:34:10');
-INSERT INTO `yii_admin_menu` VALUES ('4', '用户组列表', '3', '0', 'system/group-list', '0', '1,2', '1', '2017-09-16 18:36:54');
-INSERT INTO `yii_admin_menu` VALUES ('5', '用户列表', '3', '0', 'system/user-list', '0', '1', '1', '2017-09-16 18:37:24');
-INSERT INTO `yii_admin_menu` VALUES ('6', '菜单列表', '2', '0', 'system/menu-list', '0', '1,2', '1', '2017-09-16 18:38:03');
-INSERT INTO `yii_admin_menu` VALUES ('7', '全局配置', '0', '0', 'config/index', '0', '0', '1', '2017-09-16 20:58:47');
+INSERT INTO `yii_admin_menu` VALUES ('1', '首页', '0', '1', '0', 'index/index', '0', '2', '1', '2018-03-12 15:51:29');
+INSERT INTO `yii_admin_menu` VALUES ('2', '系统设置', '0', '2', '0', 'system/index', '0', '1', '1', '2017-10-28 15:09:33');
+INSERT INTO `yii_admin_menu` VALUES ('3', '导航栏列表', '2', '2-3', '0', 'menu/list', '0', '0', '1', '2017-10-28 13:30:45');
+INSERT INTO `yii_admin_menu` VALUES ('4', '管理员列表', '2', '2-4', '0', 'admin/list', '0', '1', '1', '2017-10-28 15:02:03');
+INSERT INTO `yii_admin_menu` VALUES ('5', '用户组列表', '2', '2-5', '0', 'system/group-list', '0', '1', '1', '2017-10-28 15:10:24');
+INSERT INTO `yii_admin_menu` VALUES ('20', '用户中心', '0', '20', '10', 'user/index', '0', '5', '1', '2017-11-19 16:28:36');
+INSERT INTO `yii_admin_menu` VALUES ('22', '配置中心', '2', '2-22', '0', '', '0', '1', '1', '2017-10-29 15:03:20');
+INSERT INTO `yii_admin_menu` VALUES ('23', '全局配置', '22', '2-22-23', '0', 'config/global', '0', '1', '1', '2017-10-29 15:03:59');
+INSERT INTO `yii_admin_menu` VALUES ('28', '用户列表', '20', '20-28', '0', 'user/list', '0', '5', '1', '2017-11-19 16:29:10');
+INSERT INTO `yii_admin_menu` VALUES ('30', '消息中心', '20', '20-30', '0', 'message/list', '0', '5', '1', '2017-11-19 18:04:31');
 
 -- ----------------------------
 -- Table structure for `yii_admin_user`
@@ -85,15 +90,15 @@ CREATE TABLE `yii_admin_user` (
   `update_time` datetime NOT NULL COMMENT '更新时间',
   `group_id` int(11) NOT NULL COMMENT '所属用户组',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '用户状态（1-正常 0-禁用）',
-  `menu_ids` varchar(2000) NOT NULL DEFAULT '' COMMENT '菜单id集合',
+  `create_people` varchar(50) DEFAULT NULL COMMENT '创建人',
   PRIMARY KEY (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of yii_admin_user
 -- ----------------------------
-INSERT INTO `yii_admin_user` VALUES ('1', 'admin', '$2y$13$0UVcG.mXF6Og0rnjfwJd2.wixT2gdn.wDO9rN44jGtIGc6JvBqR7i', 'SbSY36BLw3V2lU-GB7ZAzCVJKDFx82IJ', '15311583010@126.com', '15311583010', '2017-09-15 23:00:08', '2130706433', '2017-09-15 23:00:19', '2130706433', '2017-09-15 23:00:25', '1', '1', '1,2,3');
-INSERT INTO `yii_admin_user` VALUES ('2', 'ceshi', '$13$SO1qMnykM3MJuNizsqzQH.QBjPPDZ7U556yUtmSU3optwZ1EdWm0W', 'nkqZMhWkbIsjZrF1J8laC1UxWoXPRobA', 'ceshi@126.com', '18676379315', '2017-09-21 16:37:13', '2130706433', '2017-09-21 16:37:20', '2130706433', '2017-09-21 16:37:32', '2', '1', '');
+INSERT INTO `yii_admin_user` VALUES ('1', 'admin', '$2y$13$0UVcG.mXF6Og0rnjfwJd2.wixT2gdn.wDO9rN44jGtIGc6JvBqR7i', 'SbSY36BLw3V2lU-GB7ZAzCVJKDFx82IJ', '15311583010@126.com', '', '2017-09-15 23:00:08', '2130706433', '2017-09-15 23:00:19', '2130706433', '2017-10-29 14:23:47', '5', '1', null);
+INSERT INTO `yii_admin_user` VALUES ('2', 'ceshi', '$13$SO1qMnykM3MJuNizsqzQH.QBjPPDZ7U556yUtmSU3optwZ1EdWm0W', 'nkqZMhWkbIsjZrF1J8laC1UxWoXPRobA', 'ceshi@126.com', '18676379315', '2017-09-21 16:37:13', '2130706433', '2017-09-21 16:37:20', '2130706433', '2017-09-21 16:37:32', '2', '1', null);
 
 -- ----------------------------
 -- Table structure for `yii_admin_user_auth`
@@ -127,12 +132,12 @@ CREATE TABLE `yii_admin_user_group` (
   `update_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`group_id`),
   UNIQUE KEY `index_name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of yii_admin_user_group
 -- ----------------------------
-INSERT INTO `yii_admin_user_group` VALUES ('1', '系统管理员', 'system', '2130706433', 'system', '2017-09-15 22:57:44', '1', '2017-09-15 22:57:48');
+INSERT INTO `yii_admin_user_group` VALUES ('5', '系统管理员', 'system', '2130706433', 'admin', '2017-11-19 14:07:06', '1', '2017-11-19 14:07:08');
 INSERT INTO `yii_admin_user_group` VALUES ('2', '内容管理组', 'content_manage', '2130706433', 'system', '2017-09-16 01:01:56', '1', '2017-09-16 01:02:00');
 
 -- ----------------------------
@@ -180,36 +185,46 @@ INSERT INTO `yii_captcha` VALUES ('23', '120.234.16.114', '13316922246', '2312',
 -- ----------------------------
 DROP TABLE IF EXISTS `yii_config`;
 CREATE TABLE `yii_config` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '配置ID',
-  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '配置名称',
-  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '配置说明',
-  `group` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '配置分组',
-  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '配置类型',
-  `value` text COMMENT '配置值',
-  `extra` varchar(255) NOT NULL DEFAULT '' COMMENT '配置值',
-  `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '配置说明',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `sort` smallint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
-  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `desc` varchar(100) NOT NULL COMMENT '配置描述',
+  `key` varchar(50) NOT NULL COMMENT '配置key',
+  `value` varchar(255) NOT NULL,
+  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '配置类型（1-全局配置）',
+  `create_time` datetime NOT NULL,
+  `update_time` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_name` (`name`),
-  KEY `type` (`type`),
-  KEY `group` (`group`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `index_key` (`key`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of yii_config
 -- ----------------------------
-INSERT INTO `yii_config` VALUES ('1', 'WEB_SITE_TITLE', '网站标题', '1', '1', '内容管理框架', '', '网站标题前台显示标题', '1378898976', '1505369383', '0', '1');
-INSERT INTO `yii_config` VALUES ('2', 'WEB_SITE_DESCRIPTION', '网站描述', '1', '2', '内容管理框架', '', '网站搜索引擎描述', '1378898976', '1505369383', '1', '1');
-INSERT INTO `yii_config` VALUES ('3', 'WEB_SITE_KEYWORD', '网站关键字', '1', '2', '', '', '网站搜索引擎关键字', '1378898976', '1505369383', '8', '1');
-INSERT INTO `yii_config` VALUES ('4', 'WEB_SITE_CLOSE', '关闭站点', '4', '4', '1', '0:关闭,1:开启', '站点关闭后其他用户不能访问，管理员可以正常访问', '1378898976', '1463024280', '1', '0');
-INSERT INTO `yii_config` VALUES ('9', 'CONFIG_TYPE_LIST', '配置类型列表', '3', '3', '0:数字\r\n1:字符\r\n2:文本\r\n3:数组\r\n4:枚举', '', '主要用于数据解析和页面表单的生成', '1378898976', '1463024244', '2', '1');
-INSERT INTO `yii_config` VALUES ('10', 'WEB_SITE_ICP', '网站备案号', '1', '1', '', '', '设置在网站底部显示的备案号，如“沪ICP备12007941号-2', '1378900335', '1505369383', '9', '1');
-INSERT INTO `yii_config` VALUES ('11', 'DATA_BACKUP_PATH', '数据库备份路径', '4', '1', '/storage/web/database/', '', '路径必须以 / 结尾', '1379053380', '1476448404', '3', '1');
-INSERT INTO `yii_config` VALUES ('12', 'DOCUMENT_DISPLAY', '文档可见性', '2', '3', '0:所有人可见\r\n1:仅注册会员可见\r\n2:仅管理员可见', '', '文章可见性仅影响前台显示，后台不收影响', '1379056370', '1481279789', '4', '1');
-INSERT INTO `yii_config` VALUES ('13', 'COLOR_STYLE', '后台色系', '1', '4', 'blue_color', 'default_color:默认\r\nblue_color:紫罗兰', '后台颜色风格', '1379122533', '1505369383', '10', '1');
+INSERT INTO `yii_config` VALUES ('1', '邀请码', 'invite_code', '123456', '1', '2017-11-24 20:56:42', '2017-11-26 18:08:09');
+
+-- ----------------------------
+-- Table structure for `yii_message`
+-- ----------------------------
+DROP TABLE IF EXISTS `yii_message`;
+CREATE TABLE `yii_message` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '消息id',
+  `uid` varchar(255) NOT NULL COMMENT '用户id（关联user_info表主键），为空时为公共消息',
+  `title` varchar(100) NOT NULL COMMENT '消息标题',
+  `type` tinyint(1) NOT NULL COMMENT '消息类别（1-普通消息 2-文章消息 3-预约反馈 4-物业审核）',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `content` varchar(255) NOT NULL COMMENT '消息内容',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `relation_id` int(11) DEFAULT NULL COMMENT '关联id',
+  `relation_type` tinyint(2) DEFAULT NULL COMMENT '关联类型（1-文章 2-过桥预约 3-物业预约 4-赎楼预约 5-其它预约）',
+  `status` tinyint(4) NOT NULL COMMENT '状态（0-未查看 1-已查看）',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `index_uid` (`uid`,`status`),
+  KEY `index_type` (`uid`,`type`,`status`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of yii_message
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `yii_region`
@@ -3741,3 +3756,54 @@ INSERT INTO `yii_region` VALUES ('659004', '659000', '', '五家渠市', '2');
 INSERT INTO `yii_region` VALUES ('710000', '0', '', '台湾省', '0');
 INSERT INTO `yii_region` VALUES ('810000', '0', '', '香港特别行政区', '0');
 INSERT INTO `yii_region` VALUES ('820000', '0', '', '澳门特别行政区', '0');
+
+-- ----------------------------
+-- Table structure for `yii_user_info`
+-- ----------------------------
+DROP TABLE IF EXISTS `yii_user_info`;
+CREATE TABLE `yii_user_info` (
+  `uid` varchar(14) NOT NULL COMMENT '用户id',
+  `openid` varchar(50) NOT NULL COMMENT '微信openid',
+  `nickname` varchar(50) DEFAULT NULL COMMENT '用于昵称',
+  `head_photo` varchar(255) DEFAULT NULL COMMENT '头像地址',
+  `password` char(32) DEFAULT NULL COMMENT '用户密码',
+  `salt` char(32) DEFAULT NULL COMMENT '密码干扰盐值',
+  `tel` varchar(11) DEFAULT NULL COMMENT '联系电话',
+  `sex` tinyint(1) NOT NULL DEFAULT '0' COMMENT '性别（0-未知 1-男 2-女）',
+  `type` smallint(4) NOT NULL DEFAULT '4' COMMENT '用户类型(1-客户经理 2-内部人员 3-地产中介 4-其他)',
+  `reg_time` datetime NOT NULL COMMENT '注册时间',
+  `reg_ip` char(10) DEFAULT NULL COMMENT '注册id',
+  `reg_source` tinyint(2) NOT NULL DEFAULT '1' COMMENT '注册来源（1-个人注册 2-管理员添加）',
+  `last_login_time` datetime NOT NULL COMMENT '最后登录时间',
+  `last_login_ip` char(10) NOT NULL,
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '用户状态（0-无效 1-有效）',
+  PRIMARY KEY (`uid`),
+  UNIQUE KEY `index_openid` (`openid`) USING BTREE,
+  UNIQUE KEY `index_nickname` (`nickname`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of yii_user_info
+-- ----------------------------
+INSERT INTO `yii_user_info` VALUES ('15079935938664', '', 'huang', null, 'e10adc3949ba59abbe56e057f20f883e', '', '15311583010', '1', '3', '2017-10-14 23:08:13', '2130706433', '1', '2017-10-14 23:09:15', '2130706433', '2017-11-23 09:54:06', '1');
+INSERT INTO `yii_user_info` VALUES ('15116833508097', 'oDCAP0XMF8MkkbE6aToLsNidiS9c', 'framk', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTI5sfWNhMSJAvxUo0nrjDzQO8PbtP5UAVbZ3Z3mRQfSGB8bib5Rk87usWBp2NnqX886Ps7VG5vVF9w/0', '34e21dd2d141efa30d2e3baded5cf317', '7bff177f3b828211d35373c7fa5267f7', '13510901409', '1', '4', '2017-11-26 16:02:30', '3071155829', '1', '2017-12-01 00:56:45', '1948172972', '2017-12-01 00:56:45', '1');
+
+-- ----------------------------
+-- Table structure for `yii_user_session`
+-- ----------------------------
+DROP TABLE IF EXISTS `yii_user_session`;
+CREATE TABLE `yii_user_session` (
+  `uid` varchar(15) NOT NULL COMMENT '用户id',
+  `sid` varchar(50) NOT NULL COMMENT '会话id',
+  `valid_time` varchar(10) NOT NULL COMMENT 'sid有效截止时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`uid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of yii_user_session
+-- ----------------------------
+INSERT INTO `yii_user_session` VALUES ('15079935938664', 'dec0071981b1bc663f10693c23579395', '1510306811', '2017-10-11 17:40:11');
+INSERT INTO `yii_user_session` VALUES ('15081455574753', 'dec0071981b1bc663f10693c23579395', '1510306811', '2017-10-16 18:21:49');
+INSERT INTO `yii_user_session` VALUES ('15116833508097', 'OtYFvpwbA3j+LeFkJGHwjw==', '1514653005', '2017-12-01 00:56:45');

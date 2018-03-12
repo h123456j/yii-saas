@@ -8,7 +8,7 @@
 
 return [
     'api'=>[
-        'host'=>'https://it919.cn/api/'
+        'host'=>'https://{host}/api/'
     ],
     'secretKey'=>'17eaf9a57c751b340d502734c29e4735'
 ];
