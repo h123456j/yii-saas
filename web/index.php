@@ -1,5 +1,5 @@
 <?php
-
+echo "kkkkk";die;
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 defined('YII_MODULE') or define('YII_MODULE','frontend');

@@ -38,6 +38,7 @@ class Response extends \yii\web\Response
      * 错误返回
      * @param null $code
      * @param null $message
+     * @throws \yii\base\ExitException
      */
     public function error($code=null,$message=null)
     {
@@ -82,6 +83,7 @@ class Response extends \yii\web\Response
     /**
      * 成功返回
      * @param string $data
+     * @throws \yii\base\ExitException
      */
     public function success($data='')
     {
