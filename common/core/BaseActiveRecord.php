@@ -11,6 +11,8 @@ use Yii;
 class BaseActiveRecord extends \yii\db\ActiveRecord
 {
 
+    const IS_DELETED_0=0;
+
     public static function getTablePrefix($db='db')
     {
         return Yii::$app->get($db)->tablePrefix;

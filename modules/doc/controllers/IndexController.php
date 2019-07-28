@@ -8,8 +8,11 @@
 
 namespace doc\controllers;
 
+use app\models\FieldDetailOperation;
+use app\models\FieldGroupOperation;
+use app\models\FieldTemplateOperation;
+use app\models\table\FieldTemplateMapEntity;
 use yii\helpers\ArrayHelper;
-use yii\helpers\VarDumper;
 use yii\web\Controller;
 
 class IndexController extends Controller
@@ -118,6 +121,70 @@ class IndexController extends Controller
         $param['name'] = str_replace('$','',array_shift($part));
         $param['brief'] = implode(' ',$part);
         return $param;
+    }
+
+    /**
+     * 属性配置列表
+     * @return string
+     */
+    public function actionFieldList()
+    {
+        $this->layout = false;
+        $groupList = (new FieldGroupOperation())->getGroupList('archive');
+        $groupIds = array_column($groupList, 'group_id');
+        $groupList = ArrayHelper::index($groupList, 'group_id');
+        $result = (new FieldDetailOperation())->getFieldDetailList($groupIds);
+        $fieldList = [];
+        foreach ($result as $item) {
+            $groupId = $item['group_id'];
+            if (!isset($fieldList[$groupId])) {
+                $fieldList[$groupId]['group_name'] = $groupList[$groupId]['name_chn'];
+            }
+            $fieldList[$groupId]['data'][] = [
+                'id' => $item['id'],
+                'tab_id' => $groupList[$groupId]['tab_id'],
+                'name_eng' => $item['name_eng'],
+                'module_name' => $item['module_name'],
+                'module_id' => $item['module_id'],
+                'name_chn' => $item['name_chn']
+            ];
+        }
+        $fieldTemplate = (new FieldTemplateOperation())->getFieldTemplateList();
+        $url = "";
+        return $this->render('field-list', ['fieldList' => $fieldList, 'fieldTemplate' => $fieldTemplate, 'url' => $url]);
+    }
+
+    public function actionDealFields()
+    {
+        try {
+            $templateId = \Yii::$app->request->post('templateId');
+            $data = trim(\Yii::$app->request->post('data'));
+            $fieldArray = explode(',', $data);
+            $saveData = [];
+            foreach ($fieldArray as $item) {
+                if (empty($item)) {
+                    continue;
+                }
+                $temp = explode('-', $item);
+                $entity = FieldTemplateMapEntity::findOne(['template_id' => $templateId, 'field_id' => $temp[3], 'is_deleted' => Model::IS_DELETED_0]);
+                if ($entity) {
+                    continue;
+                }
+                $saveData[$temp[3]] = [
+                    'template_id' => $templateId,
+                    'tab_id' => $temp[0],
+                    'group_id' => $temp[1],
+                    'module_id' => $temp[2],
+                    'field_id' => $temp[3],
+                    'field_name' => $temp[4]
+                ];
+            }
+            $fields = array_keys(current($saveData));
+            FieldTemplateMapEntity::getDb()->createCommand()->batchInsert(FieldTemplateMapEntity::tableName(), $fields, $saveData)->execute();
+            return json_encode(["result"=>true]);
+        } catch (\Exception $ex) {
+            return json_encode(["result"=>false,"message"=>"服务繁忙"]);
+        }
     }
 
 }
